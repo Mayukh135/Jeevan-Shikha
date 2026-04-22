@@ -1,9 +1,9 @@
 /* ============================================================
    JEEVAN SHIKSHA WEBSITE — Main Stylesheet
    Palette derived from the Jeevan Shiksha logo (woodpecker):
-     Primary   — Logo Maroon-Red  #8C2318
-     Secondary — Forest Green     #3F6B32
-     Accent    — Warm Amber       #C47830
+     Primary   — Logo Maroon-Red  #c64b35
+     Secondary — Forest Green     #768a6b
+     Accent    — Warm Amber       #dda121
    Fonts: Lora (display) + Nunito Sans (body)
    ============================================================ */
 
@@ -12,21 +12,21 @@
 /* === CSS VARIABLES === */
 :root {
   /* Primary — deep logo red (woodpecker body) */
-  --blue:        #8C2318;
-  --blue-mid:    #AE3020;
-  --blue-light:  #F8EAE8;
+  --blue:        #c64b35;
+  --blue-mid:    #b64530;
+  --blue-light:  #f6e3df;
 
   /* Secondary — forest green (branch & leaves) */
-  --teal:        #3F6B32;
-  --teal-light:  #EAF2E6;
+  --teal:        #768a6b;
+  --teal-light:  #e7ece4;
 
   /* Accent — warm amber (earthy warmth from logo) */
-  --maroon:      #C47830;
-  --maroon-light:#FDF3E4;
+  --maroon:      #dda121;
+  --maroon-light:#f9edd4;
 
   /* Backgrounds — warm cream, barely changed */
-  --cream:       #FAF7F2;
-  --cream-dark:  #EFE7D6;
+  --cream:       #f9f6ee;
+  --cream-dark:  #eee8db;
 
   /* Text — warm charcoal */
   --text:        #1C1A18;
@@ -35,9 +35,9 @@
   --white:       #FFFFFF;
 
   /* Shadows — use primary red tint */
-  --shadow-sm:   0 2px 12px rgba(140,35,24,0.07);
-  --shadow:      0 6px 28px rgba(140,35,24,0.11);
-  --shadow-lg:   0 12px 48px rgba(140,35,24,0.15);
+  --shadow-sm:   0 2px 12px rgba(198,75,53,0.07);
+  --shadow:      0 6px 28px rgba(198,75,53,0.11);
+  --shadow-lg:   0 12px 48px rgba(198,75,53,0.15);
 
   --radius:      12px;
   --radius-lg:   20px;
@@ -133,12 +133,12 @@ p  { font-size: 1rem; color: var(--text-mid); }
 .btn-primary {
   background: var(--maroon);
   color: var(--white);
-  box-shadow: 0 4px 20px rgba(196,120,48,0.35);
+  box-shadow: 0 4px 20px rgba(221,161,33,0.35);
 }
 .btn-primary:hover {
-  background: #9A5E20;
+  background: #c58f1d;
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(196,120,48,0.45);
+  box-shadow: 0 8px 28px rgba(221,161,33,0.45);
 }
 .btn-secondary {
   background: transparent;
@@ -163,10 +163,10 @@ p  { font-size: 1rem; color: var(--text-mid); }
   color: var(--white);
   padding: 10px 22px;
   font-size: 0.85rem;
-  box-shadow: 0 3px 14px rgba(196,120,48,0.3);
+  box-shadow: 0 3px 14px rgba(221,161,33,0.3);
 }
 .btn-donate:hover {
-  background: #9A5E20;
+  background: #c58f1d;
   transform: translateY(-2px);
 }
 
@@ -174,13 +174,13 @@ p  { font-size: 1rem; color: var(--text-mid); }
 .navbar {
   position: fixed; top: 0; left: 0; right: 0;
   z-index: 1000;
-  background: rgba(140,35,24,0.97);
+  background: rgba(198,75,53,0.97);
   backdrop-filter: blur(12px);
   transition: var(--transition);
   border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 .navbar.scrolled {
-  background: rgba(140,35,24,1);
+  background: rgba(198,75,53,1);
   box-shadow: var(--shadow);
 }
 .navbar-inner {
@@ -332,9 +332,9 @@ p  { font-size: 1rem; color: var(--text-mid); }
 .slide.active { opacity: 1; }
 
 /* Placeholder colours — replace with background-image: url(...) once photos are ready */
-.slide-1 { background-color: #8C2318; }
-.slide-2 { background-color: #2d6a4f; }
-.slide-3 { background-color: #C47830; }
+.slide-1 { background-color: #c64b35; }
+.slide-2 { background-color: #768a6b; }
+.slide-3 { background-color: #dda121; }
 
 /* Prev / Next arrows */
 .slider-arrow {
@@ -709,7 +709,7 @@ p  { font-size: 1rem; color: var(--text-mid); }
 .gallery-item:hover img { transform: scale(1.05); }
 .gallery-overlay {
   position: absolute; inset: 0;
-  background: rgba(140,35,24,0.5);
+  background: rgba(198,75,53,0.5);
   display: flex; align-items: center; justify-content: center;
   opacity: 0; transition: var(--transition);
   color: white; font-size: 1.6rem;
@@ -985,7 +985,7 @@ p  { font-size: 1rem; color: var(--text-mid); }
 /* === PAGE HERO (inner pages) === */
 .page-hero {
   padding: 130px 0 70px;
-  background: linear-gradient(135deg, var(--blue) 0%, #AE3020 100%);
+  background: linear-gradient(135deg, var(--blue) 0%, #b64530 100%);
   position: relative;
   overflow: hidden;
 }
@@ -1105,7 +1105,7 @@ p  { font-size: 1rem; color: var(--text-mid); }
 .gallery-full-item:hover img { transform: scale(1.06); }
 .gallery-full-item .goverlay {
   position: absolute; inset: 0;
-  background: rgba(140,35,24,0.55);
+  background: rgba(198,75,53,0.55);
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   opacity: 0; transition: var(--transition);
@@ -1165,12 +1165,14 @@ p  { font-size: 1rem; color: var(--text-mid); }
   .collab-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 480px) {
+  .container { padding: 0 16px; }
   .about-stats { grid-template-columns: 1fr 1fr; }
   .gallery-grid { grid-template-columns: 1fr; }
   .gallery-item:nth-child(1) { aspect-ratio: 4/3; }
   .footer-grid { grid-template-columns: 1fr; }
   .slide-actions { flex-direction: column; align-items: flex-start; }
-  .team-grid { grid-template-columns: 1fr 1fr; }
+  .team-grid { grid-template-columns: 1fr; }
+  .gallery-full-grid { grid-template-columns: 1fr; }
 }
 
 /* === PROGRAMS HOME GRID (2×2, image + text) === */

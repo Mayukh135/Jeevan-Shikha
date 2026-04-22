@@ -129,7 +129,7 @@
 
 /* === FUTURE PLANS PAGE === */
 .future-plans-hero {
-  background: linear-gradient(135deg, var(--blue) 0%, #1a5c4a 100%);
+  background: linear-gradient(135deg, var(--blue) 0%, #768a6b 100%);
 }
 .plans-grid {
   display: grid;
@@ -157,7 +157,7 @@
 .plan-card:nth-child(2) { border-top-color: var(--maroon); }
 .plan-card:nth-child(2)::before { background: radial-gradient(circle at top right, rgba(193,59,42,0.07), transparent 70%); }
 .plan-card:nth-child(3) { border-top-color: var(--blue-mid); }
-.plan-card:nth-child(4) { border-top-color: #c47c00; }
+.plan-card:nth-child(4) { border-top-color: #dda121; }
 .plan-icon { font-size: 2.4rem; margin-bottom: 16px; }
 .plan-card h3 { font-size: 1.15rem; color: var(--blue); margin-bottom: 12px; }
 .plan-card p  { font-size: 0.9rem; color: var(--text-mid); line-height: 1.75; }
@@ -376,13 +376,13 @@
 
 /* Text area */
 .ev-text { padding: 20px 22px 22px; }
-.ev-text h4 { font-size: 1rem; margin-bottom: 6px; color: var(--text-dark); }
+.ev-text h4 { font-size: 1rem; margin-bottom: 6px; color: var(--text); }
 .ev-text .ev-short { font-size: 0.88rem; color: var(--text-light); margin: 0; line-height: 1.6; }
 
 /* ---- Hover overlay (slides up from bottom) ---- */
 .ev-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(160deg, rgba(140,35,24,0.97) 0%, rgba(63,107,50,0.97) 100%);
+  background: linear-gradient(160deg, rgba(198,75,53,0.97) 0%, rgba(118,138,107,0.97) 100%);
   display: flex; flex-direction: column; justify-content: flex-end;
   padding: 28px 24px;
   transform: translateY(100%);
@@ -417,7 +417,7 @@
 
 .prog-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(160deg, rgba(140,35,24,0.97) 0%, rgba(63,107,50,0.95) 100%);
+  background: linear-gradient(160deg, rgba(198,75,53,0.97) 0%, rgba(118,138,107,0.95) 100%);
   display: flex; flex-direction: column; justify-content: center;
   padding: 36px 32px;
   transform: translateY(100%);
@@ -501,7 +501,7 @@
 .reports-table tbody tr.hidden { display: none; }
 .reports-table td {
   padding: 16px 18px;
-  font-size: 0.9rem; color: var(--text-dark);
+  font-size: 0.9rem; color: var(--text);
   vertical-align: middle;
 }
 .reports-table td:last-child { text-align: right; }
@@ -516,7 +516,7 @@
   text-transform: uppercase; letter-spacing: 0.1em;
   padding: 3px 9px; border-radius: 99px; flex-shrink: 0;
 }
-.badge-latest { background: #eaf2e6; color: var(--teal); }
+.badge-latest { background: #e7ece4; color: var(--teal); }
 
 .report-row-unavailable td { color: #9aabb8; }
 .report-row-unavailable .report-name-cell { font-weight: 400; }
@@ -846,7 +846,7 @@
 .proj-card h3 {
   font-size: 1.05rem;
   margin-bottom: 10px;
-  color: var(--text-dark);
+  color: var(--text);
 }
 .proj-card p {
   font-size: 0.88rem;
@@ -905,7 +905,7 @@
   gap: 60px;
   align-items: center;
 }
-.proj-overview-text h2 { color: var(--text-dark); }
+.proj-overview-text h2 { color: var(--text); }
 .proj-overview-text p { color: var(--text-light); line-height: 1.8; }
 
 .proj-photo-placeholder-lg {
@@ -966,7 +966,7 @@
   font-size: 1.2rem;
   flex-shrink: 0;
 }
-.proj-activity-item h4 { font-size: 1rem; margin-bottom: 6px; color: var(--text-dark); }
+.proj-activity-item h4 { font-size: 1rem; margin-bottom: 6px; color: var(--text); }
 .proj-activity-item p  { font-size: 0.88rem; color: var(--text-light); line-height: 1.7; margin: 0; }
 
 /* CTA section */
@@ -1002,5 +1002,16 @@
 }
 @media (max-width: 600px) {
   .proj-grid { grid-template-columns: 1fr; }
+  .proj-photo-grid { grid-template-columns: 1fr; }
   .vmv-track { gap: 16px; }
+}
+
+@media (max-width: 480px) {
+  .toast {
+    white-space: normal;
+    max-width: calc(100vw - 24px);
+    border-radius: 12px;
+    padding: 12px 16px;
+    text-align: left;
+  }
 }
