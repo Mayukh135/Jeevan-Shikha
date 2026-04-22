@@ -894,7 +894,6 @@ p  { font-size: 1rem; color: var(--text-mid); }
   gap: 50px;
   margin-bottom: 50px;
 }
-.footer-brand { }
 .footer-brand .logo-wrap {
   display: flex; align-items: center; gap: 12px;
   margin-bottom: 18px;
