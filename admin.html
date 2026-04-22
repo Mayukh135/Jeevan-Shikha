@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Admin Panel — Jeevan Shiksha</title>
+<meta name="description" content="Administrative dashboard for managing Jeevan Shiksha website content, reports, initiatives, and updates."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<style>
+/* =========================================================
+   JEEVAN SHIKSHA — ADMIN PANEL
+   Theme: Dark sidebar + crisp white workspace
+   Fonts: DM Serif Display (headings) + DM Sans (UI)
+   ========================================================= */
+:root {
+  --blue:        #8C2318;
+  --blue-mid:    #2860A8;
+  --teal:        #3F6B32;
+  --teal-light:  #e6f7f5;
+  --maroon:      #C47830;
+  --maroon-light:#fdf0ee;
+  --sidebar:     #0f1e35;
+  --sidebar-mid: #172840;
+  --sidebar-hi:  #1e3554;
+  --white:       #ffffff;
+  --bg:          #f4f6fb;
+  --card:        #ffffff;
+  --border:      #e8ecf4;
+  --text:        #1a1f36;
+  --text-mid:    #4a5568;
+  --text-light:  #8492a6;
+  --success:     #3F6B32;
+  --warning:     #e6a817;
+  --danger:      #C47830;
+  --radius:      10px;
+  --radius-lg:   16px;
+  --shadow-sm:   0 1px 8px rgba(27,65,114,.07);
+  --shadow:      0 4px 20px rgba(27,65,114,.11);
+  --shadow-lg:   0 8px 40px rgba(27,65,114,.16);
+  --transition:  0.22s cubic-bezier(.4,0,.2,1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+img { max-width: 100%; display: block; }
+button { cursor: pointer; font-family: inherit; }
+input, textarea, select { font-family: inherit; }
+
+/* =========================================================  LOGIN SCREEN  */
+#login-screen {
+  position: fixed; inset: 0; z-index: 1000;
+  background: linear-gradient(135deg, #0a1628 0%, #8C2318 55%, #3F6B32 100%);
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+}
+.login-box {
+  background: rgba(255,255,255,.06);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 20px;
+  padding: 48px 44px;
+  width: 100%; max-width: 420px;
+  box-shadow: 0 24px 80px rgba(0,0,0,.35);
+  animation: fadeUp .6s ease both;
+}
+@keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:none; } }
+.login-bird { font-size: 2.6rem; margin-bottom: 18px; }
+.login-box h1 { font-family: 'DM Serif Display', serif; font-size: 1.9rem; color: #fff; line-height: 1.15; margin-bottom: 6px; }
+.login-box .sub { color: rgba(255,255,255,.58); font-size: .87rem; margin-bottom: 34px; }
+.login-field { margin-bottom: 16px; }
+.login-field label { display: block; font-size: .75rem; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,.55); margin-bottom: 7px; }
+.login-field input, .login-field select {
+  width: 100%; padding: 12px 16px;
+  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.16);
+  border-radius: 10px; color: #fff; font-size: .93rem; outline: none;
+  transition: border-color var(--transition);
+}
+.login-field input::placeholder { color: rgba(255,255,255,.3); }
+.login-field input:focus, .login-field select:focus { border-color: var(--teal); }
+.login-field select option { background: #8C2318; color: #fff; }
+.login-btn {
+  width: 100%; padding: 13px; margin-top: 8px;
+  background: var(--teal); color: #fff; border: none;
+  border-radius: 10px; font-size: .95rem; font-weight: 700;
+  letter-spacing: .02em; transition: background var(--transition), transform var(--transition);
+}
+.login-btn:hover { background: #238878; transform: translateY(-1px); }
+.login-hint { font-size: .76rem; color: rgba(255,255,255,.38); text-align:center; margin-top: 16px; }
+.login-error { background: rgba(193,59,42,.25); border: 1px solid rgba(193,59,42,.5); color: #ff9988; border-radius: 8px; padding: 10px 14px; font-size: .84rem; margin-bottom: 12px; display:none; }
+
+/* =========================================================  APP SHELL  */
+#app { display: flex; height: 100vh; }
+#app.hidden { display: none; }
+
+/* =========================================================  SIDEBAR  */
+.sidebar {
+  width: 248px; flex-shrink: 0;
+  background: var(--sidebar);
+  display: flex; flex-direction: column;
+  border-right: 1px solid rgba(255,255,255,.05);
+  overflow-y: auto;
+  position: relative;
+}
+.sidebar::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--teal), var(--blue-mid), var(--maroon));
+}
+.sidebar-top { padding: 28px 22px 20px; border-bottom: 1px solid rgba(255,255,255,.07); }
+.sidebar-logo { display: flex; align-items: center; gap: 12px; }
+.sidebar-logo .bird { font-size: 1.7rem; }
+.sidebar-logo .brand { font-family: 'DM Serif Display', serif; font-size: 1.05rem; color: #fff; line-height: 1.2; }
+.sidebar-logo .tag { font-size: .65rem; color: rgba(255,255,255,.4); text-transform: uppercase; letter-spacing: .12em; }
+.sidebar-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-top: 14px;
+  background: rgba(44,160,144,.18); border: 1px solid rgba(44,160,144,.3);
+  border-radius: 99px; padding: 4px 12px;
+  font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em;
+  color: #7ee8d8;
+}
+.sidebar-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); }
+
+.sidebar-nav { padding: 16px 12px; flex: 1; }
+.nav-section-label {
+  font-size: .64rem; font-weight: 700; text-transform: uppercase; letter-spacing: .15em;
+  color: rgba(255,255,255,.28); padding: 0 10px; margin: 18px 0 8px;
+}
+.nav-item {
+  display: flex; align-items: center; gap: 11px;
+  padding: 10px 12px; border-radius: 9px;
+  color: rgba(255,255,255,.6); font-size: .88rem; font-weight: 500;
+  cursor: pointer; transition: all var(--transition);
+  margin-bottom: 2px; position: relative;
+  border: none; background: transparent; width: 100%; text-align: left;
+}
+.nav-item i { width: 18px; text-align: center; font-size: .95rem; }
+.nav-item:hover { color: rgba(255,255,255,.9); background: var(--sidebar-hi); }
+.nav-item.active { color: #fff; background: var(--sidebar-hi); }
+.nav-item.active::before {
+  content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+  width: 3px; height: 60%; border-radius: 0 3px 3px 0; background: var(--teal);
+}
+.nav-badge {
+  margin-left: auto; background: var(--maroon); color: #fff;
+  font-size: .68rem; font-weight: 700; padding: 2px 8px; border-radius: 99px;
+}
+
+.sidebar-user {
+  padding: 18px 20px; border-top: 1px solid rgba(255,255,255,.07);
+  display: flex; align-items: center; gap: 11px;
+}
+.user-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--teal), var(--blue-mid));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; color: #fff; font-weight: 700; flex-shrink: 0;
+}
+.user-name { font-size: .86rem; font-weight: 600; color: rgba(255,255,255,.85); }
+.user-role { font-size: .71rem; color: rgba(255,255,255,.38); text-transform: uppercase; letter-spacing: .08em; }
+.logout-btn {
+  margin-left: auto; background: none; border: none;
+  color: rgba(255,255,255,.35); font-size: .95rem; transition: color var(--transition);
+  padding: 4px;
+}
+.logout-btn:hover { color: var(--maroon); }
+
+/* =========================================================  MAIN AREA  */
+.main { flex: 1; overflow-y: auto; display: flex; flex-direction: column; }
+
+/* TOP BAR */
+.topbar {
+  background: var(--white); border-bottom: 1px solid var(--border);
+  padding: 0 32px; height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: var(--shadow-sm);
+}
+.topbar-left h2 { font-family: 'DM Serif Display', serif; font-size: 1.35rem; color: var(--blue); }
+.topbar-left .breadcrumb-bar { font-size: .77rem; color: var(--text-light); }
+.topbar-right { display: flex; align-items: center; gap: 14px; }
+.topbar-search {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 8px; padding: 8px 14px;
+}
+.topbar-search input {
+  border: none; background: none; font-size: .85rem;
+  color: var(--text); outline: none; width: 180px;
+}
+.topbar-search i { color: var(--text-light); font-size: .9rem; }
+.topbar-icon {
+  width: 38px; height: 38px; border-radius: 9px;
+  background: var(--bg); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-mid); font-size: .95rem; position: relative;
+}
+.notif-dot {
+  position: absolute; top: 7px; right: 7px;
+  width: 7px; height: 7px; border-radius: 50%; background: var(--maroon);
+  border: 1.5px solid var(--white);
+}
+
+/* =========================================================  CONTENT  */
+.content { padding: 28px 32px; flex: 1; }
+
+/* PANELS */
+.panel { display: none; animation: panelIn .3s ease both; }
+.panel.active { display: block; }
+@keyframes panelIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
+
+/* STATS ROW */
+.stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 18px; margin-bottom: 28px; }
+.stat-tile {
+  background: var(--card); border-radius: var(--radius-lg);
+  padding: 22px 22px 18px; border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm); position: relative; overflow: hidden;
+  transition: box-shadow var(--transition);
+}
+.stat-tile:hover { box-shadow: var(--shadow); }
+.stat-tile::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+  background: var(--accent, var(--teal));
+}
+.stat-tile[data-accent="maroon"]::after { background: var(--maroon); }
+.stat-tile[data-accent="blue"]::after   { background: var(--blue); }
+.stat-tile[data-accent="warning"]::after { background: var(--warning); }
+.tile-icon {
+  width: 42px; height: 42px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; margin-bottom: 14px;
+}
+.tile-icon.teal   { background: var(--teal-light); color: var(--teal); }
+.tile-icon.maroon { background: var(--maroon-light); color: var(--maroon); }
+.tile-icon.blue   { background: #ebf2ff; color: var(--blue); }
+.tile-icon.warning { background: #fff8e1; color: var(--warning); }
+.tile-num { font-family: 'DM Serif Display', serif; font-size: 2.1rem; color: var(--blue); line-height: 1; margin-bottom: 4px; }
+.tile-label { font-size: .78rem; font-weight: 600; color: var(--text-light); text-transform: uppercase; letter-spacing: .08em; }
+
+/* SECTION HEADER */
+.section-hdr {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 18px;
+}
+.section-hdr h3 { font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: var(--blue); }
+.section-hdr p  { font-size: .82rem; color: var(--text-light); margin-top: 2px; }
+
+/* BUTTONS */
+.btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 9px 18px; border-radius: 8px; font-size: .84rem; font-weight: 600;
+  border: none; transition: all var(--transition); letter-spacing: .01em;
+}
+.btn-primary { background: var(--blue); color: #fff; }
+.btn-primary:hover { background: #163561; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(27,65,114,.3); }
+.btn-teal { background: var(--teal); color: #fff; }
+.btn-teal:hover { background: #238878; transform: translateY(-1px); }
+.btn-danger { background: var(--maroon-light); color: var(--maroon); }
+.btn-danger:hover { background: var(--maroon); color: #fff; }
+.btn-ghost { background: var(--bg); color: var(--text-mid); border: 1px solid var(--border); }
+.btn-ghost:hover { background: var(--border); }
+.btn-sm { padding: 6px 12px; font-size: .78rem; }
+.btn-xs { padding: 4px 9px; font-size: .72rem; border-radius: 6px; }
+
+/* =========================================================  GALLERY  */
+.upload-zone {
+  border: 2px dashed var(--border); border-radius: var(--radius-lg);
+  padding: 36px 24px; text-align: center; cursor: pointer;
+  transition: border-color var(--transition), background var(--transition);
+  background: var(--bg); margin-bottom: 24px;
+}
+.upload-zone:hover { border-color: var(--teal); background: var(--teal-light); }
+.upload-zone i { font-size: 2.2rem; color: var(--text-light); margin-bottom: 10px; }
+.upload-zone p { font-size: .88rem; color: var(--text-mid); }
+.upload-zone strong { color: var(--teal); }
+
+.gallery-mgmt-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(160px,1fr)); gap: 14px;
+}
+.gallery-thumb {
+  border-radius: var(--radius); overflow: hidden; position: relative;
+  aspect-ratio: 4/3; background: var(--bg); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.4rem; transition: box-shadow var(--transition);
+}
+.gallery-thumb:hover { box-shadow: var(--shadow); }
+.gallery-thumb .thumb-actions {
+  position: absolute; inset: 0; background: rgba(15,30,53,.6);
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  opacity: 0; transition: opacity var(--transition);
+}
+.gallery-thumb:hover .thumb-actions { opacity: 1; }
+.gallery-thumb .thumb-cat {
+  position: absolute; top: 7px; left: 7px;
+  background: rgba(27,65,114,.75); color: rgba(255,255,255,.9);
+  font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+  padding: 3px 8px; border-radius: 5px;
+}
+.icon-btn {
+  width: 34px; height: 34px; border-radius: 8px; border: none;
+  display: flex; align-items: center; justify-content: center; font-size: .9rem;
+}
+.icon-btn.edit   { background: rgba(255,255,255,.9); color: var(--blue); }
+.icon-btn.delete { background: rgba(193,59,42,.85); color: #fff; }
+.icon-btn:hover { transform: scale(1.1); }
+
+/* =========================================================  TEAM  */
+.team-mgmt-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 18px; }
+.member-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 24px 20px; text-align: center;
+  box-shadow: var(--shadow-sm); transition: box-shadow var(--transition);
+  position: relative;
+}
+.member-card:hover { box-shadow: var(--shadow); }
+.member-avatar {
+  width: 72px; height: 72px; border-radius: 50%; margin: 0 auto 12px;
+  background: linear-gradient(135deg, #ebf2ff, #c7e0ff);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem; border: 3px solid var(--border);
+}
+.member-name { font-family: 'DM Serif Display', serif; font-size: 1rem; color: var(--blue); margin-bottom: 4px; }
+.member-role { font-size: .75rem; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: .07em; }
+.member-state { font-size: .76rem; color: var(--text-light); margin-top: 3px; }
+.member-badge {
+  position: absolute; top: 14px; right: 14px;
+  font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em;
+  padding: 3px 9px; border-radius: 99px;
+}
+.member-badge.admin   { background: #ebf2ff; color: var(--blue); }
+.member-badge.staff   { background: var(--teal-light); color: var(--teal); }
+.member-badge.trustee { background: #fff8e1; color: var(--warning); }
+.member-actions { margin-top: 16px; display: flex; gap: 8px; justify-content: center; }
+
+/* =========================================================  EVENTS  */
+.events-mgmt-list { display: flex; flex-direction: column; gap: 14px; }
+.event-mgmt-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: 20px 24px;
+  display: flex; align-items: flex-start; gap: 18px;
+  box-shadow: var(--shadow-sm); transition: box-shadow var(--transition);
+}
+.event-mgmt-card:hover { box-shadow: var(--shadow); }
+.event-date-chip {
+  background: var(--blue); color: #fff;
+  border-radius: var(--radius); padding: 10px 14px;
+  text-align: center; min-width: 58px; flex-shrink: 0;
+}
+.event-date-chip .day { font-family: 'DM Serif Display', serif; font-size: 1.5rem; line-height: 1; }
+.event-date-chip .mon { font-size: .66rem; text-transform: uppercase; letter-spacing: .1em; opacity: .8; }
+.event-meta { flex: 1; }
+.event-meta h4 { font-family: 'DM Serif Display', serif; font-size: 1rem; color: var(--blue); margin-bottom: 4px; }
+.event-meta p  { font-size: .82rem; color: var(--text-mid); line-height: 1.5; }
+.event-tags { display: flex; gap: 7px; margin-top: 8px; }
+.etag {
+  font-size: .67rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em;
+  padding: 3px 9px; border-radius: 99px;
+}
+.etag-teal   { background: var(--teal-light); color: var(--teal); }
+.etag-blue   { background: #ebf2ff; color: var(--blue); }
+.etag-maroon { background: var(--maroon-light); color: var(--maroon); }
+.etag-warning { background: #fff8e1; color: var(--warning); }
+.event-actions { display: flex; gap: 7px; align-items: flex-start; }
+
+/* =========================================================  MESSAGES  */
+.msgs-layout { display: grid; grid-template-columns: 320px 1fr; gap: 18px; min-height: 480px; }
+.msgs-list { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+.msgs-list-hdr { padding: 16px 18px; border-bottom: 1px solid var(--border); font-weight: 700; font-size: .85rem; color: var(--blue); display:flex; align-items:center; justify-content:space-between; }
+.msg-item {
+  padding: 14px 18px; border-bottom: 1px solid var(--border);
+  cursor: pointer; transition: background var(--transition);
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.msg-item:hover { background: var(--bg); }
+.msg-item.active { background: #ebf2ff; border-left: 3px solid var(--blue); }
+.msg-item.unread .msg-name { font-weight: 700; }
+.msg-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); flex-shrink:0; margin-top:5px; }
+.msg-dot.read { background: transparent; border: 1.5px solid var(--border); }
+.msg-name { font-size: .86rem; color: var(--text); margin-bottom: 2px; }
+.msg-preview { font-size: .77rem; color: var(--text-light); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 210px; }
+.msg-time { font-size: .7rem; color: var(--text-light); margin-left: auto; white-space: nowrap; flex-shrink:0; }
+.msg-tag-sm { font-size:.62rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; padding:2px 7px; border-radius:99px; margin-top:4px; display:inline-block; }
+
+.msg-detail {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); display: flex; flex-direction: column;
+}
+.msg-detail-empty {
+  flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  color: var(--text-light); font-size: .88rem; gap: 10px;
+}
+.msg-detail-empty i { font-size: 2.5rem; opacity: .3; }
+.msg-detail-hdr { padding: 20px 24px; border-bottom: 1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+.msg-sender-info .name { font-family: 'DM Serif Display', serif; font-size: 1.05rem; color: var(--blue); }
+.msg-sender-info .meta { font-size: .78rem; color: var(--text-light); margin-top: 2px; }
+.msg-detail-body { padding: 24px; flex: 1; }
+.msg-detail-body .subject { font-weight: 700; color: var(--text); margin-bottom: 12px; font-size: .92rem; }
+.msg-detail-body p { font-size: .88rem; color: var(--text-mid); line-height: 1.75; }
+.msg-detail-footer { padding: 16px 24px; border-top: 1px solid var(--border); display:flex; gap:10px; }
+
+/* =========================================================  MODAL  */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(10,22,40,.55);
+  z-index: 500; display: none; align-items: center; justify-content: center;
+  padding: 24px; backdrop-filter: blur(4px);
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: var(--white); border-radius: 18px; width: 100%; max-width: 520px;
+  box-shadow: var(--shadow-lg); animation: modalIn .28s ease both;
+  overflow: hidden;
+}
+@keyframes modalIn { from { opacity:0; transform:scale(.94) translateY(16px); } to { opacity:1; transform:none; } }
+.modal-hdr {
+  padding: 22px 28px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.modal-hdr h3 { font-family: 'DM Serif Display', serif; font-size: 1.15rem; color: var(--blue); }
+.modal-close { background: none; border: none; font-size: 1.1rem; color: var(--text-light); transition: color var(--transition); }
+.modal-close:hover { color: var(--maroon); }
+.modal-body { padding: 24px 28px; }
+.form-field { margin-bottom: 16px; }
+.form-field label { display:block; font-size:.76rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--text-mid); margin-bottom:6px; }
+.form-field input, .form-field select, .form-field textarea {
+  width:100%; padding:10px 14px; border:1.5px solid var(--border);
+  border-radius:8px; font-size:.88rem; color:var(--text); outline:none;
+  transition:border-color var(--transition); background:var(--bg);
+}
+.form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color:var(--teal); background:#fff; }
+.form-field textarea { resize:vertical; min-height:90px; }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.modal-footer { padding:16px 28px; border-top:1px solid var(--border); display:flex; justify-content:flex-end; gap:10px; }
+
+/* =========================================================  ROLE GUARD  */
+.admin-only { /* shown only for admin */ }
+[data-role="volunteer"] .admin-only { display: none !important; }
+
+/* =========================================================  TOAST  */
+.toast {
+  position: fixed; bottom:28px; right:28px; z-index:9999;
+  background:#1a2f50; color:#fff; padding:13px 20px;
+  border-radius:10px; font-size:.85rem; font-weight:600;
+  box-shadow:var(--shadow-lg); display:flex; align-items:center; gap:9px;
+  transform:translateY(60px); opacity:0;
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1), opacity .3s;
+  pointer-events:none;
+}
+.toast.show { transform:translateY(0); opacity:1; }
+.toast.success { border-left:4px solid var(--teal); }
+.toast.error   { border-left:4px solid var(--maroon); }
+
+/* =========================================================  ACTIVITY FEED  */
+.activity-feed { display:flex; flex-direction:column; gap:0; }
+.activity-item {
+  display:flex; gap:14px; align-items:flex-start;
+  padding:13px 0; border-bottom:1px solid var(--border);
+}
+.activity-item:last-child { border-bottom:none; }
+.act-icon {
+  width:34px; height:34px; border-radius:9px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center; font-size:.9rem;
+}
+.act-text { font-size:.84rem; color:var(--text-mid); line-height:1.5; }
+.act-text strong { color:var(--text); font-weight:600; }
+.act-time { font-size:.73rem; color:var(--text-light); margin-top:2px; }
+
+/* =========================================================  QUICK ACTIONS  */
+.quick-actions { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:28px; }
+.qa-card {
+  background:var(--card); border:1px solid var(--border); border-radius:var(--radius-lg);
+  padding:18px 16px; text-align:center; cursor:pointer;
+  transition:all var(--transition); box-shadow:var(--shadow-sm);
+}
+.qa-card:hover { box-shadow:var(--shadow); transform:translateY(-2px); border-color:var(--teal); }
+.qa-icon { font-size:1.6rem; margin-bottom:9px; }
+.qa-label { font-size:.8rem; font-weight:700; color:var(--blue); }
+.qa-sub   { font-size:.72rem; color:var(--text-light); margin-top:3px; }
+
+/* =========================================================  VOLUNTEER ACCESS BANNER  */
+.access-banner {
+  background: linear-gradient(135deg, #fff8e1, #fff3cc);
+  border: 1px solid #ffe082; border-radius:var(--radius);
+  padding:12px 18px; display:flex; align-items:center; gap:12px;
+  margin-bottom:22px; font-size:.83rem; color:#7a5800;
+}
+.access-banner i { font-size:1rem; }
+
+/* =========================================================  RESPONSIVE  */
+@media (max-width:900px) {
+  .sidebar { width:200px; }
+  .stats-row { grid-template-columns:1fr 1fr; }
+  .quick-actions { grid-template-columns:1fr 1fr; }
+  .msgs-layout { grid-template-columns:1fr; }
+}
+@media (max-width:640px) {
+  .sidebar { display:none; }
+  .content { padding:18px; }
+  .topbar { padding:0 18px; }
+  .stats-row { grid-template-columns:1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ================================================ LOGIN SCREEN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-bird">🐦</div>
+    <h1>Jeevan Shiksha<br/><em style="font-style:italic;color:rgba(255,255,255,.7);font-size:.75em;">Admin Panel</em></h1>
+    <p class="sub">Sign in to manage your website content</p>
+    <div class="login-error" id="login-error">Incorrect password. Please try again.</div>
+    <div class="login-field">
+      <label>Your Name</label>
+      <input type="text" id="login-name" placeholder="e.g. Proshik Das"/>
+    </div>
+    <div class="login-field">
+      <label>Role</label>
+      <select id="login-role">
+        <option value="admin">Admin (Full Access)</option>
+        <option value="volunteer">Volunteer (Limited Access)</option>
+      </select>
+    </div>
+    <div class="login-field">
+      <label>Password</label>
+      <input type="password" id="login-pass" placeholder="Enter password" onkeydown="if(event.key==='Enter') doLogin()"/>
+    </div>
+    <button class="login-btn" onclick="doLogin()">Sign In →</button>
+    <p class="login-hint">Demo: use password <strong style="color:rgba(255,255,255,.6);">jeevan2025</strong> for any role</p>
+  </div>
+</div>
+
+<!-- ================================================ APP -->
+<div id="app" class="hidden">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-top">
+      <div class="sidebar-logo">
+        <span class="bird">🐦</span>
+        <div>
+          <div class="brand">Jeevan Shiksha</div>
+          <div class="tag">Admin Panel</div>
+        </div>
+      </div>
+      <div class="sidebar-badge">
+        <div class="dot"></div>
+        <span id="role-badge-text">Admin</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Overview</div>
+      <button class="nav-item active" onclick="showPanel('dashboard', this)">
+        <i class="fa fa-th-large"></i> Dashboard
+      </button>
+
+      <div class="nav-section-label">Content</div>
+      <button class="nav-item" onclick="showPanel('gallery', this)">
+        <i class="fa fa-images"></i> Gallery
+      </button>
+      <button class="nav-item" onclick="showPanel('team', this)">
+        <i class="fa fa-users"></i> Team Members
+      </button>
+      <button class="nav-item" onclick="showPanel('events', this)">
+        <i class="fa fa-calendar"></i> Events
+      </button>
+      <button class="nav-item admin-only" onclick="showPanel('messages', this)" id="msg-nav-item">
+        <i class="fa fa-envelope"></i> Messages
+        <span class="nav-badge" id="msg-count">3</span>
+      </button>
+
+      <div class="nav-section-label">Site</div>
+      <button class="nav-item" onclick="showPanel('settings', this)">
+        <i class="fa fa-cog"></i> Settings
+      </button>
+    </nav>
+
+    <div class="sidebar-user">
+      <div class="user-avatar" id="user-avatar-initials">P</div>
+      <div>
+        <div class="user-name" id="user-display-name">Proshik Das</div>
+        <div class="user-role" id="user-display-role">Admin</div>
+      </div>
+      <button class="logout-btn" onclick="doLogout()" title="Sign out"><i class="fa fa-sign-out-alt"></i></button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div class="topbar-left">
+        <h2 id="topbar-title">Dashboard</h2>
+        <div class="breadcrumb-bar">Admin Panel › <span id="topbar-sub">Overview</span></div>
+      </div>
+      <div class="topbar-right">
+        <div class="topbar-search">
+          <i class="fa fa-search"></i>
+          <input type="text" placeholder="Search anything…"/>
+        </div>
+        <div class="topbar-icon" style="cursor:pointer;" onclick="showPanel('messages', document.querySelector('[onclick*=messages]'))">
+          <i class="fa fa-bell"></i>
+          <div class="notif-dot" id="notif-dot"></div>
+        </div>
+        <a href="index.html" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm"><i class="fa fa-external-link-alt"></i> View Site</a>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+
+      <!-- ========================= DASHBOARD PANEL -->
+      <div class="panel active" id="panel-dashboard">
+        <div class="volunteer-banner-wrap" id="vol-banner" style="display:none;">
+          <div class="access-banner">
+            <i class="fa fa-info-circle"></i>
+            <span>You're signed in as a <strong>Volunteer</strong>. Some features like Messages and team deletion are restricted to Admins only.</span>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-row">
+          <div class="stat-tile" data-accent="teal">
+            <div class="tile-icon teal"><i class="fa fa-images"></i></div>
+            <div class="tile-num">9</div>
+            <div class="tile-label">Gallery Photos</div>
+          </div>
+          <div class="stat-tile" data-accent="blue">
+            <div class="tile-icon blue"><i class="fa fa-users"></i></div>
+            <div class="tile-num">12</div>
+            <div class="tile-label">Team Members</div>
+          </div>
+          <div class="stat-tile" data-accent="warning">
+            <div class="tile-icon warning"><i class="fa fa-calendar-check"></i></div>
+            <div class="tile-num">3</div>
+            <div class="tile-label">Upcoming Events</div>
+          </div>
+          <div class="stat-tile admin-only" data-accent="maroon">
+            <div class="tile-icon maroon"><i class="fa fa-envelope"></i></div>
+            <div class="tile-num">3</div>
+            <div class="tile-label">New Messages</div>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="section-hdr"><div><h3>Quick Actions</h3><p>Common tasks at a glance</p></div></div>
+        <div class="quick-actions">
+          <div class="qa-card" onclick="showPanel('gallery', document.querySelectorAll('.nav-item')[1]); setTimeout(()=>document.getElementById('upload-trigger').click(),300)">
+            <div class="qa-icon">📸</div>
+            <div class="qa-label">Upload Photo</div>
+            <div class="qa-sub">Add to gallery</div>
+          </div>
+          <div class="qa-card" onclick="showPanel('events', document.querySelectorAll('.nav-item')[3]); setTimeout(()=>openModal('event-modal'),300)">
+            <div class="qa-icon">📅</div>
+            <div class="qa-label">Add Event</div>
+            <div class="qa-sub">Post upcoming event</div>
+          </div>
+          <div class="qa-card" onclick="showPanel('team', document.querySelectorAll('.nav-item')[2]); setTimeout(()=>openModal('member-modal'),300)">
+            <div class="qa-icon">👤</div>
+            <div class="qa-label">Add Member</div>
+            <div class="qa-sub">Update team list</div>
+          </div>
+          <div class="qa-card admin-only" onclick="showPanel('messages', document.querySelector('[onclick*=messages]'))">
+            <div class="qa-icon">💬</div>
+            <div class="qa-label">View Messages</div>
+            <div class="qa-sub">3 unread</div>
+          </div>
+        </div>
+
+        <!-- Activity Feed -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px;">
+            <div class="section-hdr" style="margin-bottom:14px;"><div><h3>Recent Activity</h3></div></div>
+            <div class="activity-feed">
+              <div class="activity-item">
+                <div class="act-icon" style="background:#e6f7f5;color:var(--teal);"><i class="fa fa-images"></i></div>
+                <div><div class="act-text"><strong>Bubul Tanti</strong> uploaded 3 gallery photos</div><div class="act-time">2 hours ago</div></div>
+              </div>
+              <div class="activity-item">
+                <div class="act-icon" style="background:#ebf2ff;color:var(--blue);"><i class="fa fa-calendar"></i></div>
+                <div><div class="act-text"><strong>Proshik Das</strong> added new event: Bal Mela 2025</div><div class="act-time">Yesterday</div></div>
+              </div>
+              <div class="activity-item">
+                <div class="act-icon" style="background:var(--maroon-light);color:var(--maroon);"><i class="fa fa-envelope"></i></div>
+                <div><div class="act-text">New message from <strong>Rahul Verma</strong> — Volunteering</div><div class="act-time">2 days ago</div></div>
+              </div>
+              <div class="activity-item">
+                <div class="act-icon" style="background:#fff8e1;color:var(--warning);"><i class="fa fa-user-plus"></i></div>
+                <div><div class="act-text"><strong>Taukeer Alam</strong> updated team member info</div><div class="act-time">3 days ago</div></div>
+              </div>
+            </div>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px;">
+            <div class="section-hdr" style="margin-bottom:14px;"><div><h3>Website Pages</h3></div></div>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <a href="index.html" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:space-between;padding:11px 14px;background:var(--bg);border-radius:9px;text-decoration:none;color:var(--text);font-size:.85rem;border:1px solid var(--border);transition:box-shadow var(--transition);" onmouseover="this.style.boxShadow='var(--shadow)'" onmouseout="this.style.boxShadow=''">
+                <span><i class="fa fa-home" style="color:var(--teal);margin-right:9px;"></i> Home Page</span>
+                <i class="fa fa-external-link-alt" style="color:var(--text-light);font-size:.75rem;"></i>
+              </a>
+              <a href="projects.html" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:space-between;padding:11px 14px;background:var(--bg);border-radius:9px;text-decoration:none;color:var(--text);font-size:.85rem;border:1px solid var(--border);transition:box-shadow var(--transition);" onmouseover="this.style.boxShadow='var(--shadow)'" onmouseout="this.style.boxShadow=''">
+                <span><i class="fa fa-folder-open" style="color:var(--blue);margin-right:9px;"></i> Projects Page</span>
+                <i class="fa fa-external-link-alt" style="color:var(--text-light);font-size:.75rem;"></i>
+              </a>
+              <a href="gallery.html" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:space-between;padding:11px 14px;background:var(--bg);border-radius:9px;text-decoration:none;color:var(--text);font-size:.85rem;border:1px solid var(--border);transition:box-shadow var(--transition);" onmouseover="this.style.boxShadow='var(--shadow)'" onmouseout="this.style.boxShadow=''">
+                <span><i class="fa fa-images" style="color:var(--maroon);margin-right:9px;"></i> Gallery Page</span>
+                <i class="fa fa-external-link-alt" style="color:var(--text-light);font-size:.75rem;"></i>
+              </a>
+              <a href="about.html" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:space-between;padding:11px 14px;background:var(--bg);border-radius:9px;text-decoration:none;color:var(--text);font-size:.85rem;border:1px solid var(--border);transition:box-shadow var(--transition);" onmouseover="this.style.boxShadow='var(--shadow)'" onmouseout="this.style.boxShadow=''">
+                <span><i class="fa fa-info-circle" style="color:var(--warning);margin-right:9px;"></i> About Us Page</span>
+                <i class="fa fa-external-link-alt" style="color:var(--text-light);font-size:.75rem;"></i>
+              </a>
+              <a href="contact.html" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:space-between;padding:11px 14px;background:var(--bg);border-radius:9px;text-decoration:none;color:var(--text);font-size:.85rem;border:1px solid var(--border);transition:box-shadow var(--transition);" onmouseover="this.style.boxShadow='var(--shadow)'" onmouseout="this.style.boxShadow=''">
+                <span><i class="fa fa-phone" style="color:var(--teal);margin-right:9px;"></i> Contact Page</span>
+                <i class="fa fa-external-link-alt" style="color:var(--text-light);font-size:.75rem;"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================= GALLERY PANEL -->
+      <div class="panel" id="panel-gallery">
+        <div class="section-hdr">
+          <div><h3>Gallery Management</h3><p>Upload, organise and remove photos from the website gallery</p></div>
+          <button class="btn btn-teal" id="upload-trigger" onclick="openModal('upload-modal')"><i class="fa fa-plus"></i> Upload Photos</button>
+        </div>
+
+        <!-- Upload Zone -->
+        <div class="upload-zone" onclick="openModal('upload-modal')">
+          <div><i class="fa fa-cloud-upload-alt"></i></div>
+          <p><strong>Click to upload</strong> or drag and drop photos here</p>
+          <p style="font-size:.78rem;color:var(--text-light);margin-top:5px;">PNG, JPG, WEBP — max 10MB each</p>
+        </div>
+
+        <!-- Filter bar -->
+        <div style="display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;">
+          <button class="btn btn-sm btn-primary" onclick="filterGallery('all',this)">All</button>
+          <button class="btn btn-sm btn-ghost" onclick="filterGallery('health',this)">Health</button>
+          <button class="btn btn-sm btn-ghost" onclick="filterGallery('education',this)">Education</button>
+          <button class="btn btn-sm btn-ghost" onclick="filterGallery('environment',this)">Environment</button>
+          <button class="btn btn-sm btn-ghost" onclick="filterGallery('sports',this)">Sports</button>
+          <button class="btn btn-sm btn-ghost" onclick="filterGallery('events',this)">Events</button>
+        </div>
+
+        <div class="gallery-mgmt-grid" id="gallery-grid">
+          <!-- injected by JS -->
+        </div>
+      </div>
+
+      <!-- ========================= TEAM PANEL -->
+      <div class="panel" id="panel-team">
+        <div class="section-hdr">
+          <div><h3>Team Members</h3><p>Manage board members, project staff and field coordinators</p></div>
+          <button class="btn btn-teal" onclick="openModal('member-modal')"><i class="fa fa-user-plus"></i> Add Member</button>
+        </div>
+
+        <!-- Tabs -->
+        <div style="display:flex;gap:6px;margin-bottom:22px;background:var(--bg);padding:5px;border-radius:10px;width:fit-content;border:1px solid var(--border);">
+          <button class="btn btn-sm btn-primary" id="ttab-board" onclick="filterTeam('board',this)">Board of Trustees</button>
+          <button class="btn btn-sm btn-ghost" id="ttab-staff" onclick="filterTeam('staff',this)">Project Staff</button>
+          <button class="btn btn-sm btn-ghost" id="ttab-field" onclick="filterTeam('field',this)">Field &amp; Others</button>
+        </div>
+
+        <div class="team-mgmt-grid" id="team-grid"><!-- injected by JS --></div>
+      </div>
+
+      <!-- ========================= EVENTS PANEL -->
+      <div class="panel" id="panel-events">
+        <div class="section-hdr">
+          <div><h3>Events</h3><p>Add and manage upcoming events shown on the website</p></div>
+          <button class="btn btn-teal" onclick="openModal('event-modal')"><i class="fa fa-plus"></i> Add Event</button>
+        </div>
+        <div class="events-mgmt-list" id="events-list"><!-- injected by JS --></div>
+      </div>
+
+      <!-- ========================= MESSAGES PANEL (Admin only) -->
+      <div class="panel admin-only" id="panel-messages">
+        <div class="section-hdr">
+          <div><h3>Contact Messages</h3><p>Messages submitted through the website contact form</p></div>
+          <button class="btn btn-ghost btn-sm" onclick="markAllRead()"><i class="fa fa-check-double"></i> Mark all read</button>
+        </div>
+        <div class="msgs-layout">
+          <div class="msgs-list">
+            <div class="msgs-list-hdr">
+              Inbox <span style="background:#ebf2ff;color:var(--blue);font-size:.7rem;padding:2px 9px;border-radius:99px;" id="unread-label">3 unread</span>
+            </div>
+            <div id="msgs-list-items"><!-- injected by JS --></div>
+          </div>
+          <div class="msg-detail" id="msg-detail">
+            <div class="msg-detail-empty">
+              <i class="fa fa-envelope-open"></i>
+              <span>Select a message to read it</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================= SETTINGS PANEL -->
+      <div class="panel" id="panel-settings">
+        <div class="section-hdr"><div><h3>Settings</h3><p>Website configuration and admin preferences</p></div></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:26px;">
+            <h4 style="font-family:'DM Serif Display',serif;color:var(--blue);margin-bottom:18px;">Site Information</h4>
+            <div class="form-field"><label>Site Title</label><input type="text" value="Jeevan Shiksha"/></div>
+            <div class="form-field"><label>Tagline</label><input type="text" value="Education from Life"/></div>
+            <div class="form-field"><label>Email</label><input type="email" value="jeevanshiksha.india@gmail.com"/></div>
+            <div class="form-field"><label>Phone (Primary)</label><input type="tel" value="+91 9678494812"/></div>
+            <button class="btn btn-primary" onclick="showToast('Settings saved!','success')"><i class="fa fa-save"></i> Save Changes</button>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:26px;">
+            <h4 style="font-family:'DM Serif Display',serif;color:var(--blue);margin-bottom:18px;">Admin Accounts</h4>
+            <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:20px;">
+              <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--bg);border-radius:9px;border:1px solid var(--border);">
+                <div class="user-avatar" style="width:34px;height:34px;font-size:.85rem;">P</div>
+                <div style="flex:1;"><div style="font-size:.86rem;font-weight:600;color:var(--text);">Proshik Das</div><div style="font-size:.74rem;color:var(--text-light);">Admin</div></div>
+                <span style="font-size:.68rem;font-weight:700;background:#ebf2ff;color:var(--blue);padding:3px 9px;border-radius:99px;">ADMIN</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--bg);border-radius:9px;border:1px solid var(--border);">
+                <div class="user-avatar" style="width:34px;height:34px;font-size:.85rem;background:linear-gradient(135deg,var(--teal),#238878);">B</div>
+                <div style="flex:1;"><div style="font-size:.86rem;font-weight:600;color:var(--text);">Bubul Tanti</div><div style="font-size:.74rem;color:var(--text-light);">Volunteer</div></div>
+                <span style="font-size:.68rem;font-weight:700;background:var(--teal-light);color:var(--teal);padding:3px 9px;border-radius:99px;">VOLUNTEER</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--bg);border-radius:9px;border:1px solid var(--border);">
+                <div class="user-avatar" style="width:34px;height:34px;font-size:.85rem;background:linear-gradient(135deg,#c47c00,#e6a817);">T</div>
+                <div style="flex:1;"><div style="font-size:.86rem;font-weight:600;color:var(--text);">Taukeer Alam</div><div style="font-size:.74rem;color:var(--text-light);">Volunteer</div></div>
+                <span style="font-size:.68rem;font-weight:700;background:var(--teal-light);color:var(--teal);padding:3px 9px;border-radius:99px;">VOLUNTEER</span>
+              </div>
+            </div>
+            <button class="btn btn-teal admin-only" onclick="showToast('Invite sent!','success')"><i class="fa fa-user-plus"></i> Invite New Admin</button>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:26px;">
+            <h4 style="font-family:'DM Serif Display',serif;color:var(--blue);margin-bottom:18px;">Change Password</h4>
+            <div class="form-field"><label>Current Password</label><input type="password" placeholder="••••••••"/></div>
+            <div class="form-field"><label>New Password</label><input type="password" placeholder="Min. 8 characters"/></div>
+            <div class="form-field"><label>Confirm New Password</label><input type="password" placeholder="Repeat new password"/></div>
+            <button class="btn btn-primary" onclick="showToast('Password updated!','success')"><i class="fa fa-lock"></i> Update Password</button>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:26px;">
+            <h4 style="font-family:'DM Serif Display',serif;color:var(--blue);margin-bottom:8px;">EmailJS Setup</h4>
+            <p style="font-size:.82rem;color:var(--text-mid);margin-bottom:18px;line-height:1.6;">Configure EmailJS so contact form submissions are forwarded to your inbox.</p>
+            <div class="form-field"><label>Public Key</label><input type="text" placeholder="YOUR_EMAILJS_PUBLIC_KEY"/></div>
+            <div class="form-field"><label>Service ID</label><input type="text" placeholder="YOUR_SERVICE_ID"/></div>
+            <div class="form-field"><label>Template ID</label><input type="text" placeholder="YOUR_TEMPLATE_ID"/></div>
+            <button class="btn btn-primary" onclick="showToast('EmailJS config saved!','success')"><i class="fa fa-save"></i> Save Config</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </main>
+</div><!-- /app -->
+
+<!-- ================================================ MODALS -->
+
+<!-- UPLOAD MODAL -->
+<div class="modal-overlay" id="upload-modal">
+  <div class="modal">
+    <div class="modal-hdr"><h3>Upload Photos</h3><button class="modal-close" onclick="closeModal('upload-modal')">✕</button></div>
+    <div class="modal-body">
+      <div class="upload-zone" style="margin-bottom:18px;">
+        <div><i class="fa fa-cloud-upload-alt"></i></div>
+        <p><strong>Click to browse</strong> or drag files here</p>
+      </div>
+      <div class="form-field"><label>Category</label>
+        <select>
+          <option>Health</option><option>Education</option><option>Environment</option>
+          <option>Sports</option><option>Events</option><option>General</option>
+        </select>
+      </div>
+      <div class="form-field"><label>Caption (optional)</label><input type="text" placeholder="e.g. MITA camp at Balijan, October 2024"/></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('upload-modal')">Cancel</button>
+      <button class="btn btn-teal" onclick="addGalleryPhoto()"><i class="fa fa-upload"></i> Upload</button>
+    </div>
+  </div>
+</div>
+
+<!-- MEMBER MODAL -->
+<div class="modal-overlay" id="member-modal">
+  <div class="modal">
+    <div class="modal-hdr"><h3>Add Team Member</h3><button class="modal-close" onclick="closeModal('member-modal')">✕</button></div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-field"><label>Full Name</label><input type="text" id="m-name" placeholder="e.g. Anjona Majhi"/></div>
+        <div class="form-field"><label>Role / Designation</label><input type="text" id="m-role" placeholder="e.g. Field Coordinator"/></div>
+      </div>
+      <div class="form-row">
+        <div class="form-field"><label>State</label>
+          <select id="m-state"><option>Assam</option><option>Uttarakhand</option><option>Assam & Uttarakhand</option></select>
+        </div>
+        <div class="form-field"><label>Category</label>
+          <select id="m-cat"><option value="board">Board of Trustees</option><option value="staff">Project Staff</option><option value="field">Field & Others</option></select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field"><label>Email</label><input type="email" id="m-email" placeholder="name@example.com"/></div>
+        <div class="form-field"><label>Phone</label><input type="tel" id="m-phone" placeholder="+91 98765 43210"/></div>
+      </div>
+      <div class="form-field"><label>Badge Type</label>
+        <select id="m-badge"><option value="staff">Staff</option><option value="trustee">Trustee</option><option value="admin">Admin</option></select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('member-modal')">Cancel</button>
+      <button class="btn btn-teal" onclick="addMember()"><i class="fa fa-user-plus"></i> Add Member</button>
+    </div>
+  </div>
+</div>
+
+<!-- EVENT MODAL -->
+<div class="modal-overlay" id="event-modal">
+  <div class="modal">
+    <div class="modal-hdr"><h3>Add Event</h3><button class="modal-close" onclick="closeModal('event-modal')">✕</button></div>
+    <div class="modal-body">
+      <div class="form-field"><label>Event Name</label><input type="text" id="e-name" placeholder="e.g. Bal Mela 2025"/></div>
+      <div class="form-row">
+        <div class="form-field"><label>Date</label><input type="date" id="e-date"/></div>
+        <div class="form-field"><label>Category</label>
+          <select id="e-cat"><option value="etag-teal">Annual Event</option><option value="etag-blue">Health Camp</option><option value="etag-maroon">Cultural</option><option value="etag-warning">Education</option></select>
+        </div>
+      </div>
+      <div class="form-field"><label>Location</label><input type="text" id="e-loc" placeholder="e.g. Chabua, Assam"/></div>
+      <div class="form-field"><label>Description</label><textarea id="e-desc" placeholder="Brief description of the event…"></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('event-modal')">Cancel</button>
+      <button class="btn btn-teal" onclick="addEvent()"><i class="fa fa-calendar-plus"></i> Add Event</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- ================================================ JAVASCRIPT -->
+<script>
+/* ——— DATA ——— */
+const PASS = 'jeevan2025';
+let currentRole = 'admin';
+let currentUser = '';
+
+const galleryData = [
+  { id:1, emoji:'📚', cat:'education', caption:'Community Library Session' },
+  { id:2, emoji:'🌿', cat:'environment', caption:'Nature Education Walk' },
+  { id:3, emoji:'🥏', cat:'sports', caption:'Frisbee Practice — Balijan' },
+  { id:4, emoji:'🎨', cat:'events', caption:'Creativity Adda Workshop' },
+  { id:5, emoji:'🧠', cat:'health', caption:'MITA Mental Health Camp' },
+  { id:6, emoji:'👁️', cat:'health', caption:'Eye Camp — Chabua' },
+  { id:7, emoji:'🦅', cat:'environment', caption:'Bird Watching Activity' },
+  { id:8, emoji:'📖', cat:'events', caption:'Bal Mela 2024' },
+  { id:9, emoji:'🎉', cat:'events', caption:'Community Celebration' },
+];
+
+const teamData = [
+  { name:'Proshik Das',         role:'Managing Trustee',       state:'Assam',               cat:'board', badge:'trustee' },
+  { name:'Munin Dutta',         role:'Founder Trustee',        state:'Assam',               cat:'board', badge:'trustee' },
+  { name:'Taukeer Alam',        role:'Trustee · State Lead',   state:'Uttarakhand',         cat:'board', badge:'trustee' },
+  { name:'Samiksha Goel',       role:'Trustee · Coordinator',  state:'Uttarakhand',         cat:'board', badge:'trustee' },
+  { name:'Bubul Tanti',         role:'Project Coordinator',    state:'Assam',               cat:'staff', badge:'staff' },
+  { name:'Bidyut Dutta',        role:'Accountant',             state:'Assam & Uttarakhand', cat:'staff', badge:'staff' },
+  { name:'Aporna Tanti',        role:'Field Coordinator',      state:'Assam',               cat:'field', badge:'staff' },
+  { name:'Gouri Goshai',        role:'Field Coordinator',      state:'Assam',               cat:'field', badge:'staff' },
+  { name:'Anjona Majhi',        role:'Field Coordinator',      state:'Assam',               cat:'field', badge:'staff' },
+  { name:'Parishmita B. Saikia',role:'Field Coordinator',      state:'Assam',               cat:'field', badge:'staff' },
+  { name:'Saddam Hussain',      role:'Field Coordinator',      state:'Uttarakhand',         cat:'field', badge:'staff' },
+  { name:'Jarif Khan',          role:'Field Coordinator',      state:'Uttarakhand',         cat:'field', badge:'staff' },
+];
+
+const eventsData = [
+  { day:'08–14', mon:'Oct 2025', name:'Bal Mela 2025', location:'Gujjar Basti, Uttarakhand', desc:'Annual flagship event for children — origami, science, art, storytelling, Sports Day Finale.', cat:'etag-teal', catLabel:'Annual Event' },
+  { day:'15',    mon:'Nov 2025', name:'MITA Health Camp', location:'Balijan Tea Estate, Assam', desc:'Mental health consultation camp with doctors from ANT and psychiatric follow-ups.', cat:'etag-blue', catLabel:'Health Camp' },
+  { day:'22',    mon:'Dec 2025', name:'Community Library Day', location:'Chabua, Assam', desc:'Annual reading day with storytelling sessions and book distribution for children.', cat:'etag-warning', catLabel:'Education' },
+];
+
+const messagesData = [
+  { id:1, name:'Rahul Verma', email:'rahul.v@gmail.com', phone:'+91 98110 23456', subject:'Volunteering', message:'Hello, I am a social work graduate from Delhi University and am very interested in volunteering with Jeevan Shiksha during my summer break (May–June 2025). I have experience working with tribal communities and can contribute to your education programs. Please let me know how to proceed.', time:'2h ago', tag:'Volunteering', tagClass:'etag-blue', read:false },
+  { id:2, name:'Meera Krishnan', email:'meera.k@outlook.com', phone:'+91 94430 11223', subject:'Donation', message:'Hi, I came across your work through a friend and was moved by the book launch in Van Gujjari language. I would like to make a donation. Could you please send me your bank details or a UPI ID I can use? Also, can you send me a donation receipt for tax purposes?', time:'Yesterday', tag:'Donation', tagClass:'etag-teal', read:false },
+  { id:3, name:'Dr. Anil Bhat', email:'dr.anil.bhat@iimb.ac.in', phone:'+91 80 2671 9900', subject:'Partnership', message:"I'm a professor at IIM Bangalore working on rural development research. I've been following Jeevan Shiksha's work with great interest, particularly your nature education and community library programs. I'd like to explore a research partnership where our students could contribute to impact assessment. Would you be open to a call?", time:'2 days ago', tag:'Partnership', tagClass:'etag-maroon', read:false },
+  { id:4, name:'Ankita Roy', email:'ankita.roy@ngo.in', phone:'+91 99870 55432', subject:'Media Enquiry', message:"I'm a journalist writing a feature article about grassroots NGOs in Northeast India. I came across your MITA mental health project and the Van Gujjari book launch — both are incredible stories. Would someone from your team be available for a short interview this month?", time:'4 days ago', tag:'Media', tagClass:'etag-warning', read:true },
+];
+
+let galleryFilter = 'all';
+let teamFilter = 'board';
+let selectedMsg = null;
+
+/* ——— LOGIN ——— */
+function doLogin() {
+  const pass = document.getElementById('login-pass').value;
+  const name = document.getElementById('login-name').value.trim() || 'Admin';
+  const role = document.getElementById('login-role').value;
+  const err  = document.getElementById('login-error');
+
+  if (pass !== PASS) { err.style.display='block'; return; }
+  err.style.display = 'none';
+
+  currentRole = role;
+  currentUser = name;
+
+  // Apply role to app
+  const app = document.getElementById('app');
+  app.dataset.role = role;
+
+  // Update UI
+  document.getElementById('user-display-name').textContent = name;
+  document.getElementById('user-display-role').textContent = role === 'admin' ? 'Administrator' : 'Volunteer';
+  document.getElementById('role-badge-text').textContent = role === 'admin' ? 'Admin' : 'Volunteer';
+  document.getElementById('user-avatar-initials').textContent = name[0].toUpperCase();
+
+  // Volunteer banner
+  if (role === 'volunteer') {
+    document.getElementById('vol-banner').style.display = 'block';
+    document.getElementById('notif-dot').style.display = 'none';
+  }
+
+  document.getElementById('login-screen').style.display = 'none';
+  app.classList.remove('hidden');
+
+  renderGallery();
+  renderTeam('board');
+  renderEvents();
+  renderMessages();
+}
+
+function doLogout() {
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('app').classList.add('hidden');
+  document.getElementById('login-pass').value = '';
+}
+
+/* ——— PANEL NAVIGATION ——— */
+function showPanel(name, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const panel = document.getElementById('panel-' + name);
+  if (panel) panel.classList.add('active');
+  if (btn) btn.classList.add('active');
+  const titles = { dashboard:'Dashboard', gallery:'Gallery', team:'Team Members', events:'Events', messages:'Messages', settings:'Settings' };
+  document.getElementById('topbar-title').textContent = titles[name] || name;
+  document.getElementById('topbar-sub').textContent = titles[name] || name;
+}
+
+/* ——— MODALS ——— */
+function openModal(id)  { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.modal-overlay').forEach(o => {
+  o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
+});
+
+/* ——— TOAST ——— */
+function showToast(msg, type='success') {
+  const t = document.getElementById('toast');
+  t.className = 'toast ' + type;
+  t.innerHTML = (type==='success' ? '✓ ' : '✗ ') + msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+/* ——— GALLERY ——— */
+function renderGallery() {
+  const grid = document.getElementById('gallery-grid');
+  const filtered = galleryFilter === 'all' ? galleryData : galleryData.filter(g => g.cat === galleryFilter);
+  grid.innerHTML = filtered.map(g => `
+    <div class="gallery-thumb" data-id="${g.id}">
+      <span style="position:absolute;">${g.emoji}</span>
+      <div class="thumb-cat">${g.cat}</div>
+      <div class="thumb-actions">
+        <button class="icon-btn edit" onclick="showToast('Edit coming soon!','success')" title="Edit"><i class="fa fa-pen"></i></button>
+        ${currentRole==='admin' ? `<button class="icon-btn delete" onclick="deleteGalleryItem(${g.id})" title="Delete"><i class="fa fa-trash"></i></button>` : ''}
+      </div>
+    </div>
+  `).join('');
+  if (!filtered.length) grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-light);">No photos in this category yet.</div>`;
+}
+
+function filterGallery(cat, btn) {
+  galleryFilter = cat;
+  document.querySelectorAll('#panel-gallery .btn-sm').forEach(b => { b.className = 'btn btn-sm btn-ghost'; });
+  btn.className = 'btn btn-sm btn-primary';
+  renderGallery();
+}
+
+function deleteGalleryItem(id) {
+  const idx = galleryData.findIndex(g => g.id === id);
+  if (idx > -1) { galleryData.splice(idx,1); renderGallery(); showToast('Photo deleted.','success'); }
+}
+
+function addGalleryPhoto() {
+  galleryData.push({ id: Date.now(), emoji:'🖼️', cat:'general', caption:'New Photo' });
+  closeModal('upload-modal');
+  renderGallery();
+  showToast('Photo uploaded successfully!','success');
+}
+
+/* ——— TEAM ——— */
+function renderTeam(cat) {
+  const grid = document.getElementById('team-grid');
+  const filtered = teamData.filter(m => m.cat === cat);
+  grid.innerHTML = filtered.map((m,i) => `
+    <div class="member-card">
+      <span class="member-badge ${m.badge}">${m.badge}</span>
+      <div class="member-avatar">${m.name[0]}</div>
+      <div class="member-name">${m.name}</div>
+      <div class="member-role">${m.role}</div>
+      <div class="member-state"><i class="fa fa-map-marker-alt" style="color:var(--teal);font-size:.7rem;margin-right:4px;"></i>${m.state}</div>
+      <div class="member-actions">
+        <button class="btn btn-xs btn-ghost" onclick="showToast('Edit member: ${m.name}','success')"><i class="fa fa-pen"></i> Edit</button>
+        ${currentRole==='admin' ? `<button class="btn btn-xs btn-danger" onclick="deleteMember(${i})"><i class="fa fa-trash"></i></button>` : ''}
+      </div>
+    </div>
+  `).join('');
+  if (!filtered.length) grid.innerHTML = `<div style="padding:30px;color:var(--text-light);">No members in this category.</div>`;
+}
+
+function filterTeam(cat, btn) {
+  teamFilter = cat;
+  document.querySelectorAll('[id^="ttab-"]').forEach(b => { b.className = 'btn btn-sm btn-ghost'; });
+  btn.className = 'btn btn-sm btn-primary';
+  renderTeam(cat);
+}
+
+function deleteMember(idx) {
+  const filtered = teamData.filter(m => m.cat === teamFilter);
+  const member = filtered[idx];
+  const realIdx = teamData.indexOf(member);
+  if (realIdx > -1) { teamData.splice(realIdx,1); renderTeam(teamFilter); showToast('Member removed.','success'); }
+}
+
+function addMember() {
+  const name  = document.getElementById('m-name').value.trim();
+  const role  = document.getElementById('m-role').value.trim();
+  const state = document.getElementById('m-state').value;
+  const cat   = document.getElementById('m-cat').value;
+  const badge = document.getElementById('m-badge').value;
+  if (!name || !role) { showToast('Please fill name and role.','error'); return; }
+  teamData.push({ name, role, state, cat, badge });
+  closeModal('member-modal');
+  renderTeam(teamFilter);
+  showToast(`${name} added to the team!`,'success');
+  document.getElementById('m-name').value = '';
+  document.getElementById('m-role').value = '';
+}
+
+/* ——— EVENTS ——— */
+function renderEvents() {
+  const list = document.getElementById('events-list');
+  list.innerHTML = eventsData.map((ev,i) => `
+    <div class="event-mgmt-card">
+      <div class="event-date-chip"><div class="day">${ev.day}</div><div class="mon">${ev.mon}</div></div>
+      <div class="event-meta">
+        <h4>${ev.name}</h4>
+        <p><i class="fa fa-map-marker-alt" style="color:var(--teal);margin-right:5px;font-size:.8rem;"></i>${ev.location}</p>
+        <p style="margin-top:5px;">${ev.desc}</p>
+        <div class="event-tags"><span class="etag ${ev.cat}">${ev.catLabel}</span></div>
+      </div>
+      <div class="event-actions">
+        <button class="btn btn-xs btn-ghost" onclick="showToast('Edit event','success')"><i class="fa fa-pen"></i></button>
+        <button class="btn btn-xs btn-danger" onclick="deleteEvent(${i})"><i class="fa fa-trash"></i></button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function deleteEvent(idx) {
+  eventsData.splice(idx,1); renderEvents(); showToast('Event removed.','success');
+}
+
+function addEvent() {
+  const name = document.getElementById('e-name').value.trim();
+  const date = document.getElementById('e-date').value;
+  const loc  = document.getElementById('e-loc').value.trim();
+  const desc = document.getElementById('e-desc').value.trim();
+  const cat  = document.getElementById('e-cat').value;
+  const catLabels = {'etag-teal':'Annual Event','etag-blue':'Health Camp','etag-maroon':'Cultural','etag-warning':'Education'};
+  if (!name || !date) { showToast('Please fill event name and date.','error'); return; }
+  const d = new Date(date);
+  eventsData.unshift({ day: d.getDate().toString(), mon: d.toLocaleString('en',{month:'short'})+' '+d.getFullYear(), name, location: loc || 'TBD', desc: desc || '-', cat, catLabel: catLabels[cat] });
+  closeModal('event-modal');
+  renderEvents();
+  showToast(`Event "${name}" added!`,'success');
+  ['e-name','e-date','e-loc','e-desc'].forEach(id => document.getElementById(id).value='');
+}
+
+/* ——— MESSAGES ——— */
+function renderMessages() {
+  const list = document.getElementById('msgs-list-items');
+  list.innerHTML = messagesData.map(m => `
+    <div class="msg-item ${m.read?'':'unread'} ${selectedMsg===m.id?'active':''}" onclick="openMessage(${m.id})">
+      <div class="msg-dot ${m.read?'read':''}"></div>
+      <div style="flex:1;min-width:0;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div class="msg-name">${m.name}</div>
+          <div class="msg-time">${m.time}</div>
+        </div>
+        <div class="msg-preview">${m.message}</div>
+        <span class="msg-tag-sm ${m.tagClass}">${m.tag}</span>
+      </div>
+    </div>
+  `).join('');
+  updateUnreadCount();
+}
+
+function openMessage(id) {
+  selectedMsg = id;
+  const m = messagesData.find(x => x.id === id);
+  if (!m) return;
+  m.read = true;
+  renderMessages();
+  document.getElementById('msg-detail').innerHTML = `
+    <div class="msg-detail-hdr">
+      <div class="msg-sender-info">
+        <div class="name">${m.name}</div>
+        <div class="meta">${m.email} · ${m.phone} · ${m.time}</div>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <span class="etag ${m.tagClass}" style="font-size:.72rem;">${m.tag}</span>
+        <button class="btn btn-xs btn-danger" onclick="deleteMessage(${m.id})"><i class="fa fa-trash"></i></button>
+      </div>
+    </div>
+    <div class="msg-detail-body">
+      <div class="subject">Subject: ${m.subject}</div>
+      <p>${m.message}</p>
+    </div>
+    <div class="msg-detail-footer">
+      <a href="mailto:${m.email}?subject=Re: ${m.subject}" class="btn btn-primary btn-sm"><i class="fa fa-reply"></i> Reply via Email</a>
+      <a href="https://wa.me/${m.phone.replace(/\D/g,'')}" target="_blank" rel="noopener noreferrer" class="btn btn-teal btn-sm"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      <button class="btn btn-ghost btn-sm" onclick="deleteMessage(${m.id})"><i class="fa fa-archive"></i> Archive</button>
+    </div>
+  `;
+}
+
+function deleteMessage(id) {
+  const idx = messagesData.findIndex(m => m.id === id);
+  if (idx > -1) { messagesData.splice(idx,1); selectedMsg=null; renderMessages(); document.getElementById('msg-detail').innerHTML=`<div class="msg-detail-empty"><i class="fa fa-envelope-open"></i><span>Select a message to read it</span></div>`; showToast('Message archived.','success'); }
+}
+
+function markAllRead() {
+  messagesData.forEach(m => m.read=true); renderMessages(); showToast('All messages marked as read.','success');
+}
+
+function updateUnreadCount() {
+  const count = messagesData.filter(m=>!m.read).length;
+  document.getElementById('unread-label').textContent = count + ' unread';
+  const nb = document.getElementById('msg-count');
+  if (nb) nb.textContent = count;
+  if (count === 0 && nb) nb.style.display='none';
+}
+</script>
+</body>
+</html>

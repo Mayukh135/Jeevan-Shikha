@@ -1,0 +1,175 @@
+<!-- gallery.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gallery — Jeevan Shiksha</title>
+  <meta name="description" content="Explore photo highlights from Jeevan Shiksha's community programs, workshops, events, and field activities."/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/additions.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    .gallery-filter { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:36px; }
+    .filter-btn { padding:8px 20px; border-radius:99px; border:2px solid var(--cream-dark); background:transparent; font-family:'Nunito Sans',sans-serif; font-weight:700; font-size:0.82rem; cursor:pointer; transition:var(--transition); color:var(--text-mid); }
+    .filter-btn.active, .filter-btn:hover { background:var(--blue); color:white; border-color:var(--blue); }
+  </style>
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%238C2318'/%3E%3Ctext y='.85em' x='50' font-size='60' text-anchor='middle' fill='white' font-family='serif'%3EJS%3C/text%3E%3C/svg%3E"/>
+  <!-- Open Graph -->
+  <meta property="og:type"         content="website"/>
+  <meta property="og:site_name"    content="Jeevan Shiksha"/>
+  <meta property="og:title"        content="Gallery — Jeevan Shiksha"/>
+  <meta property="og:description"  content="Photos from our community programs, events, and initiatives."/>
+  <meta property="og:url"          content="https://jeevanshiksha.org/gallery.html"/>
+  <meta property="og:image"        content="https://jeevanshiksha.org/assets/og-image.jpg"/>
+  <meta name="twitter:card"        content="summary_large_image"/>
+  <meta name="twitter:title"       content="Gallery — Jeevan Shiksha"/>
+  <meta name="twitter:description" content="Photos from our community programs, events, and initiatives."/>
+</head>
+<body>
+<nav class="navbar">
+  <div class="container"><div class="navbar-inner">
+    <a href="index.html" class="navbar-logo">
+          <div class="logo-icon"><i class="fas fa-feather-alt"></i></div>
+          <div class="logo-text">
+            <div class="logo-name">Jeevan Shiksha</div>
+            <div class="logo-tagline" data-en="Education from Life" data-hi="जीवन से शिक्षा">Education from Life</div>
+          </div>
+        </a>
+    <ul class="navbar-links">
+        <li><a href="index.html" data-en="Home" data-hi="होम">Home</a></li>
+        <li><a href="projects.html" data-en="Projects" data-hi="परियोजनाएं">Projects</a></li>
+        <li><a href="reports.html" data-en="Reports" data-hi="रिपोर्ट">Reports</a></li>
+        <li><a href="gallery.html" class="active" data-en="Gallery" data-hi="गैलरी">Gallery</a></li>
+        <li><a href="future-plans.html" data-en="Future Plans" data-hi="भविष्य की योजनाएं">Future Plans</a></li>
+        <li><a href="about.html" data-en="About Us" data-hi="हमारे बारे में">About Us</a></li>
+        <li><a href="contact.html" data-en="Contact" data-hi="संपर्क">Contact</a></li>
+      </ul>
+    <div class="navbar-actions"><div class="lang-toggle"><span class="lang-btn active" data-lang="en">EN</span><span class="lang-btn" data-lang="hi">हि</span></div><a href="contact.html#donate" class="btn btn-donate">Donate</a><div class="hamburger"><span></span><span></span><span></span></div></div>
+  </div></div>
+</nav>
+<nav class="mobile-nav">
+  <a href="index.html" data-en="Home" data-hi="होम">Home</a>
+  <a href="projects.html" data-en="Projects" data-hi="परियोजनाएं">Projects</a>
+  <a href="reports.html" data-en="Reports" data-hi="रिपोर्ट">Reports</a>
+  <a href="gallery.html" data-en="Gallery" data-hi="गैलरी">Gallery</a>
+  <a href="future-plans.html" data-en="Future Plans" data-hi="भविष्य की योजनाएं">Future Plans</a>
+  <a href="about.html" data-en="About Us" data-hi="हमारे बारे में">About Us</a>
+  <a href="contact.html" data-en="Contact" data-hi="संपर्क">Contact</a>
+  <div class="mobile-lang"><span class="lang-btn active" data-lang="en">EN</span><span class="lang-btn" data-lang="hi">हिंदी</span></div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a><span class="sep">›</span><span>Gallery</span></div>
+    <span class="section-label">Moments in the Field</span>
+    <h1 data-en="Photo Gallery" data-hi="फोटो गैलरी">Photo Gallery</h1>
+    <p data-en="A glimpse into our programs, events, and the lives of the communities we work with." data-hi="हमारे कार्यक्रमों, कार्यक्रमों और उन समुदायों की जीवन की एक झलक।">A glimpse into our programs, events, and the lives of the communities we work with.</p>
+  </div>
+</div>
+
+<section class="section" style="background:var(--white);">
+  <div class="container">
+    <div class="gallery-filter">
+      <button class="filter-btn active" data-en="All" data-hi="सभी">All</button>
+      <button class="filter-btn" data-en="Health" data-hi="स्वास्थ्य">Health</button>
+      <button class="filter-btn" data-en="Education" data-hi="शिक्षा">Education</button>
+      <button class="filter-btn" data-en="Environment" data-hi="पर्यावरण">Environment</button>
+      <button class="filter-btn" data-en="Sports" data-hi="खेल">Sports</button>
+      <button class="filter-btn" data-en="Events" data-hi="इवेंट">Events</button>
+    </div>
+    <div class="gallery-full-grid">
+      <div class="gallery-full-item reveal" style="background:linear-gradient(135deg,#c7e8f0,#a0d8ef);"><span>📚</span><div class="goverlay"><span>📖</span><p>Community Library Session</p></div></div>
+      <div class="gallery-full-item reveal reveal-delay-1" style="background:linear-gradient(135deg,#c7f0c7,#a0e0a0);"><span>🌿</span><div class="goverlay"><span>🌿</span><p>Nature Education Walk</p></div></div>
+      <div class="gallery-full-item reveal reveal-delay-2" style="background:linear-gradient(135deg,#ffd0b0,#ffb080);"><span>🥏</span><div class="goverlay"><span>🥏</span><p>Frisbee Practice</p></div></div>
+      <div class="gallery-full-item reveal" style="background:linear-gradient(135deg,#e0b0e0,#c080c0);"><span>🎨</span><div class="goverlay"><span>🎨</span><p>Creativity Adda Workshop</p></div></div>
+      <div class="gallery-full-item reveal reveal-delay-1" style="background:linear-gradient(135deg,#b0d0f0,#8080e0);"><span>🧠</span><div class="goverlay"><span>🧠</span><p>MITA Mental Health Camp</p></div></div>
+      <div class="gallery-full-item reveal reveal-delay-2" style="background:linear-gradient(135deg,#f0f0b0,#e0e080);"><span>👁️</span><div class="goverlay"><span>👁️</span><p>Eye Camp — Chabua</p></div></div>
+      <div class="gallery-full-item reveal" style="background:linear-gradient(135deg,#f0c0b0,#e08070);"><span>🦅</span><div class="goverlay"><span>🦅</span><p>Bird Watching Activity</p></div></div>
+      <div class="gallery-full-item reveal reveal-delay-1" style="background:linear-gradient(135deg,#c0f0e0,#80e0c0);"><span>📖</span><div class="goverlay"><span>📖</span><p>Bal Mela 2024</p></div></div>
+      <div class="gallery-full-item reveal reveal-delay-2" style="background:linear-gradient(135deg,#f0c0e0,#e080c0);"><span>🎉</span><div class="goverlay"><span>🎉</span><p>Community Celebration</p></div></div>
+    </div>
+    <p style="text-align:center;margin-top:32px;color:var(--text-light);font-size:0.9rem;" data-en="📸 To add real photos, replace the placeholder blocks above with &lt;img&gt; tags pointing to your image files." data-hi="📸 वास्तविक फोटो जोड़ने के लिए, अपनी छवि फाइलों की ओर इशारा करते हुए ऊपर प्लेसहोल्डर ब्लॉक को &lt;img&gt; टैग से बदलें।">📸 To add real photos, replace the placeholder blocks above with &lt;img&gt; tags pointing to your image files.</p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+
+      <!-- Brand -->
+      <div class="footer-brand">
+        <div class="logo-wrap">
+            <div class="logo-icon-sm"><i class="fas fa-feather-alt"></i></div>
+            <div>
+              <div class="brand-name">Jeevan Shiksha</div>
+              <div class="brand-tag" data-en="Education from Life" data-hi="जीवन से शिक्षा">Education from Life</div>
+            </div>
+          </div>
+        <p data-en="Working with marginalised communities in Assam and Uttarakhand since 2017 to improve health, education, and community wellbeing." data-hi="2017 से असम और उत्तराखंड में वंचित समुदायों के साथ स्वास्थ्य, शिक्षा और सामुदायिक कल्याण में काम कर रहे हैं।">Working with marginalised communities in Assam and Uttarakhand since 2017 to improve health, education, and community wellbeing.</p>
+        <div class="social-links">
+          <a href="https://instagram.com/jeevanshiksha" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="mailto:jeevanshiksha.india@gmail.com" class="social-link" aria-label="Email"><i class="fas fa-envelope"></i></a>
+          <a href="https://wa.me/919678494812" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="footer-col">
+        <h5 data-en="Quick Links" data-hi="त्वरित लिंक">Quick Links</h5>
+        <ul>
+          <li><a href="index.html" data-en="Home" data-hi="होम">Home</a></li>
+          <li><a href="about.html" data-en="About Us" data-hi="हमारे बारे में">About Us</a></li>
+          <li><a href="projects.html" data-en="Projects" data-hi="परियोजनाएं">Projects</a></li>
+          <li><a href="gallery.html" data-en="Gallery" data-hi="गैलरी">Gallery</a></li>
+          <li><a href="future-plans.html" data-en="Future Plans" data-hi="भविष्य की योजनाएं">Future Plans</a></li>
+          <li><a href="reports.html" data-en="Annual Reports" data-hi="वार्षिक रिपोर्ट">Annual Reports</a></li>
+          <li><a href="contact.html" data-en="Contact Us" data-hi="संपर्क करें">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <!-- Our Programs -->
+      <div class="footer-col">
+        <h5 data-en="Our Programs" data-hi="हमारे कार्यक्रम">Our Programs</h5>
+        <ul>
+          <li><a href="projects.html#health" data-en="Mental Health (MITA)" data-hi="मानसिक स्वास्थ्य">Mental Health (MITA)</a></li>
+          <li><a href="projects.html#health" data-en="Eye &amp; Reproductive Health" data-hi="नेत्र और प्रजनन स्वास्थ्य">Eye &amp; Reproductive Health</a></li>
+          <li><a href="projects.html#education" data-en="Community Library" data-hi="सामुदायिक पुस्तकालय">Community Library</a></li>
+          <li><a href="projects.html#sports" data-en="Frisbee Program" data-hi="फ्रिसबी कार्यक्रम">Frisbee Program</a></li>
+          <li><a href="projects.html#environment" data-en="Nature Education" data-hi="प्रकृति शिक्षा">Nature Education</a></li>
+          <li><a href="projects.html#culture" data-en="Creativity Adda" data-hi="क्रिएटिविटी अड्डा">Creativity Adda</a></li>
+        </ul>
+      </div>
+
+      <!-- Get Involved -->
+      <div class="footer-col">
+        <h5 data-en="Get Involved" data-hi="जुड़ें">Get Involved</h5>
+        <ul>
+          <li><a href="contact.html#donate" data-en="Donate" data-hi="दान करें">Donate</a></li>
+          <li><a href="contact.html#volunteer" data-en="Volunteer" data-hi="स्वयंसेवा">Volunteer</a></li>
+          <li><a href="contact.html#partner" data-en="Partner With Us" data-hi="हमारे साथ साझेदारी">Partner With Us</a></li>
+          <li><a href="about.html#collaborations" data-en="Collaborations" data-hi="सहयोग">Collaborations</a></li>
+        </ul>
+        <div style="margin-top:20px;">
+          <p style="font-size:0.78rem;color:rgba(255,255,255,0.45);margin-bottom:6px;" data-en="Registration No." data-hi="पंजीकरण संख्या">Registration No.</p>
+          <p style="font-size:0.82rem;color:rgba(255,255,255,0.65);">REGO. NO. 1963/2017</p>
+          <p style="font-size:0.82rem;color:rgba(255,255,255,0.65);">PAN: AACTJ7149P</p>
+        </div>
+      </div>
+
+    </div>
+    <div class="footer-bottom">
+      <span data-en="&copy; 2025 Jeevan Shiksha. All rights reserved." data-hi="&copy; 2025 जीवन शिक्षा। सर्वाधिकार सुरक्षित।">&copy; 2025 Jeevan Shiksha. All rights reserved.</span>
+      <span data-en="Designed for community impact" data-hi="समुदाय प्रभाव के लिए डिज़ाइन किया गया">Designed for community impact</span>
+    </div>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/919678494812" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+
+<script src="js/main.js"></script>
+<script src="js/additions.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us — Jeevan Shiksha</title>
+  <meta name="description" content="Get in touch with Jeevan Shiksha to volunteer, donate, collaborate, or learn more about our community work."/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/additions.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    .get-involved-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:48px; }
+    .involve-card { background:var(--white); border-radius:var(--radius-lg); padding:36px 28px; text-align:center; box-shadow:var(--shadow-sm); transition:var(--transition); }
+    .involve-card:hover { transform:translateY(-6px); box-shadow:var(--shadow-lg); }
+    .involve-icon { font-size:2.5rem; margin-bottom:16px; }
+    .involve-card h3 { font-size:1.1rem; margin-bottom:10px; }
+    .involve-card p { font-size:0.88rem; color:var(--text-mid); margin-bottom:20px; }
+    .bank-card { background:var(--white); border-radius:var(--radius-lg); padding:32px; box-shadow:var(--shadow-sm); margin-top:32px; }
+    .bank-row { display:flex; gap:12px; padding:14px 0; border-bottom:1px solid var(--cream-dark); }
+    .bank-row:last-child { border-bottom:none; }
+    .bank-label { font-size:0.78rem; font-weight:800; text-transform:uppercase; letter-spacing:0.1em; color:var(--text-light); min-width:160px; }
+    .bank-value { font-weight:600; color:var(--blue); font-size:0.92rem; }
+    @media (max-width:768px) { .get-involved-grid { grid-template-columns:1fr; } }
+  </style>
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%238C2318'/%3E%3Ctext y='.85em' x='50' font-size='60' text-anchor='middle' fill='white' font-family='serif'%3EJS%3C/text%3E%3C/svg%3E"/>
+  <!-- Open Graph -->
+  <meta property="og:type"         content="website"/>
+  <meta property="og:site_name"    content="Jeevan Shiksha"/>
+  <meta property="og:title"        content="Contact Us — Jeevan Shiksha"/>
+  <meta property="og:description"  content="Donate, volunteer, partner with us or reach out."/>
+  <meta property="og:url"          content="https://jeevanshiksha.org/contact.html"/>
+  <meta property="og:image"        content="https://jeevanshiksha.org/assets/og-image.jpg"/>
+  <meta name="twitter:card"        content="summary_large_image"/>
+  <meta name="twitter:title"       content="Contact Us — Jeevan Shiksha"/>
+  <meta name="twitter:description" content="Donate, volunteer, partner with us or reach out."/>
+</head>
+<body>
+<nav class="navbar">
+  <div class="container"><div class="navbar-inner">
+    <a href="index.html" class="navbar-logo">
+          <div class="logo-icon"><i class="fas fa-feather-alt"></i></div>
+          <div class="logo-text">
+            <div class="logo-name">Jeevan Shiksha</div>
+            <div class="logo-tagline" data-en="Education from Life" data-hi="जीवन से शिक्षा">Education from Life</div>
+          </div>
+        </a>
+    <ul class="navbar-links">
+        <li><a href="index.html" data-en="Home" data-hi="होम">Home</a></li>
+        <li><a href="projects.html" data-en="Projects" data-hi="परियोजनाएं">Projects</a></li>
+        <li><a href="reports.html" data-en="Reports" data-hi="रिपोर्ट">Reports</a></li>
+        <li><a href="gallery.html" data-en="Gallery" data-hi="गैलरी">Gallery</a></li>
+        <li><a href="future-plans.html" data-en="Future Plans" data-hi="भविष्य की योजनाएं">Future Plans</a></li>
+        <li><a href="about.html" data-en="About Us" data-hi="हमारे बारे में">About Us</a></li>
+        <li><a href="contact.html" class="active" data-en="Contact" data-hi="संपर्क">Contact</a></li>
+      </ul>
+    <div class="navbar-actions"><div class="lang-toggle"><span class="lang-btn active" data-lang="en">EN</span><span class="lang-btn" data-lang="hi">हि</span></div><a href="#donate" class="btn btn-donate" data-en="Donate" data-hi="दान करें">Donate</a><div class="hamburger"><span></span><span></span><span></span></div></div>
+  </div></div>
+</nav>
+<nav class="mobile-nav">
+  <a href="index.html" data-en="Home" data-hi="होम">Home</a>
+  <a href="projects.html" data-en="Projects" data-hi="परियोजनाएं">Projects</a>
+  <a href="reports.html" data-en="Reports" data-hi="रिपोर्ट">Reports</a>
+  <a href="gallery.html" data-en="Gallery" data-hi="गैलरी">Gallery</a>
+  <a href="future-plans.html" data-en="Future Plans" data-hi="भविष्य की योजनाएं">Future Plans</a>
+  <a href="about.html" data-en="About Us" data-hi="हमारे बारे में">About Us</a>
+  <a href="contact.html" data-en="Contact" data-hi="संपर्क">Contact</a>
+  <div class="mobile-lang"><span class="lang-btn active" data-lang="en">EN</span><span class="lang-btn" data-lang="hi">हिंदी</span></div>
+</nav>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a><span class="sep">›</span><span>Contact Us</span></div>
+    <span class="section-label" data-en="Reach Out" data-hi="संपर्क करें">Reach Out</span>
+    <h1 data-en="Contact Us" data-hi="संपर्क करें">Contact Us</h1>
+    <p data-en="We'd love to connect — whether you're interested in volunteering, donating, partnering, or just want to know more about our work." data-hi="हम जुड़ना चाहेंगे — चाहे आप स्वयंसेवा, दान, साझेदारी में रुचि रखते हों।">We'd love to connect — whether you're interested in volunteering, donating, partnering, or just want to know more about our work.</p>
+  </div>
+</div>
+
+<!-- CONTACT FORM + DETAILS -->
+<section class="contact-strip section" style="padding-top:80px;padding-bottom:80px;">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="contact-info">
+        <span class="section-label" style="color:rgba(255,255,255,0.6);" data-en="Get in Touch" data-hi="संपर्क करें">Get in Touch</span>
+        <h2 data-en="We're Here to Help" data-hi="हम यहां मदद के लिए हैं">We're Here to Help</h2>
+        <p data-en="Reach out to us anytime. Our team will respond within 2–3 working days." data-hi="कभी भी हमसे संपर्क करें। हमारी टीम 2-3 कार्य दिवसों के भीतर जवाब देगी।">Reach out to us anytime. Our team will respond within 2–3 working days.</p>
+        <div class="contact-details">
+          <div class="contact-item"><div class="contact-icon"></div><div><div class="ci-label">Email</div><div class="ci-value"><a href="mailto:jeevanshiksha.india@gmail.com" style="color:inherit;">jeevanshiksha.india@gmail.com</a></div></div></div>
+          <div class="contact-item"><div class="contact-icon">📱</div><div><div class="ci-label">Phone (Assam)</div><div class="ci-value"><a href="tel:+919678494812" style="color:inherit;">+91 9678494812</a> (Proshik Das)</div></div></div>
+          <div class="contact-item"><div class="contact-icon">📱</div><div><div class="ci-label">Phone (Assam)</div><div class="ci-value"><a href="tel:+917896356903" style="color:inherit;">+91 7896356903</a> (Bubul Tanti)</div></div></div>
+          <div class="contact-item"><div class="contact-icon">📱</div><div><div class="ci-label">Phone (Uttarakhand)</div><div class="ci-value"><a href="tel:+917500987892" style="color:inherit;">+91 7500987892</a> (Taukeer Alam)</div></div></div>
+          <div class="contact-item"><div class="contact-icon">📍</div><div><div class="ci-label">Registered Address</div><div class="ci-value">Vill. Mereli Pathar, P.O. Chabua,<br/>Dist. Dibrugarh, Assam – 786184</div></div></div>
+          <div class="contact-item"><div class="contact-icon">📸</div><div><div class="ci-label">Instagram</div><div class="ci-value"><a href="https://instagram.com/jeevanshiksha" target="_blank" rel="noopener noreferrer" style="color:inherit;">@jeevanshiksha</a></div></div></div>
+          <div class="contact-item"><div class="contact-icon">📋</div><div><div class="ci-label">Registration</div><div class="ci-value">REGO. NO. 1963/2017 | PAN: AACTJ7149P</div></div></div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <h3 style="color:white;margin-bottom:24px;" data-en="Send a Message" data-hi="संदेश भेजें">Send a Message</h3>
+        <form>
+          <div class="form-row">
+            <div class="form-group"><label data-en="Your Name" data-hi="आपका नाम">Your Name</label><input type="text" data-placeholder-en="Your full name" data-placeholder-hi="आपका पूरा नाम" placeholder="Your full name"/></div>
+            <div class="form-group"><label data-en="Email" data-hi="ईमेल">Email</label><input type="email" placeholder="you@example.com"/></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label data-en="Phone" data-hi="फ़ोन">Phone</label><input type="tel" placeholder="+91 98765 43210"/></div>
+            <div class="form-group"><label data-en="Subject" data-hi="विषय">Subject</label>
+              <select>
+                <option data-en="Volunteering" data-hi="स्वयंसेवा">Volunteering</option>
+                <option data-en="Donating" data-hi="दान">Donating</option>
+                <option data-en="Partnership" data-hi="साझेदारी">Partnership</option>
+                <option data-en="Media" data-hi="मीडिया">Media</option>
+                <option data-en="General" data-hi="सामान्य">General</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:16px;"><label data-en="Message" data-hi="संदेश">Message</label><textarea placeholder="Tell us how you'd like to get involved..." data-placeholder-en="Tell us how you'd like to get involved..." data-placeholder-hi="बताएं कि आप कैसे जुड़ना चाहते हैं..."></textarea></div>
+          <div class="form-submit"><button type="submit" class="btn btn-primary" data-en="Send Message →" data-hi="संदेश भेजें →">Send Message →</button></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GET INVOLVED -->
+<section class="section" style="background:var(--cream);" id="volunteer">
+  <div class="container">
+    <div class="text-center">
+      <span class="section-label" data-en="Ways to Help" data-hi="मदद के तरीके">Ways to Help</span>
+      <h2 data-en="Get Involved" data-hi="जुड़ें">Get Involved</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="get-involved-grid">
+      <div class="involve-card reveal">
+        <div class="involve-icon">🙋</div>
+        <h3 data-en="Volunteer" data-hi="स्वयंसेवा">Volunteer</h3>
+        <p data-en="Join us for internships, field visits, or skill-sharing. Students from universities are welcome to come and contribute." data-hi="इंटर्नशिप, फील्ड विजिट या कौशल साझाकरण के लिए हमसे जुड़ें।">Join us for internships, field visits, or skill-sharing. Students from universities are welcome to come and contribute.</p>
+        <a href="mailto:jeevanshiksha.india@gmail.com?subject=Volunteer Enquiry" class="btn btn-outline" data-en="Get in Touch" data-hi="संपर्क करें">Get in Touch</a>
+      </div>
+      <div class="involve-card reveal reveal-delay-1" id="donate">
+        <div class="involve-icon"></div>
+        <h3 data-en="Donate" data-hi="दान करें">Donate</h3>
+        <p data-en="Your donation helps fund community programs, mental health services, education materials, and more. Every rupee makes a difference." data-hi="आपका दान सामुदायिक कार्यक्रमों, मानसिक स्वास्थ्य सेवाओं और शिक्षा सामग्री को वित्त पोषित करता है।">Your donation helps fund community programs, mental health services, education materials, and more. Every rupee makes a difference.</p>
+        <a href="#bank-details" class="btn btn-primary" data-en="View Bank Details" data-hi="बैंक विवरण देखें">View Bank Details</a>
+      </div>
+      <div class="involve-card reveal reveal-delay-2" id="partner">
+        <div class="involve-icon">🤝</div>
+        <h3 data-en="Partner With Us" data-hi="हमारे साथ साझेदारी">Partner With Us</h3>
+        <p data-en="We collaborate with NGOs, academic institutions, government bodies, and foundations to strengthen our reach and impact." data-hi="हम अपनी पहुंच और प्रभाव को मजबूत करने के लिए NGO, शैक्षणिक संस्थानों और सरकारी निकायों के साथ सहयोग करते हैं।">We collaborate with NGOs, academic institutions, government bodies, and foundations to strengthen our reach and impact.</p>
+        <a href="mailto:jeevanshiksha.india@gmail.com?subject=Partnership Enquiry" class="btn btn-outline" data-en="Reach Out" data-hi="संपर्क करें">Reach Out</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BANK DETAILS -->
+<section class="section" style="background:var(--white);" id="bank-details">
+  <div class="container" style="max-width:720px;">
+    <div class="text-center">
+      <span class="section-label" data-en="Donate via Bank Transfer" data-hi="बैंक ट्रांसफर द्वारा दान करें">Donate via Bank Transfer</span>
+      <h2 data-en="Bank Details" data-hi="बैंक विवरण">Bank Details</h2>
+      <div class="divider"></div>
+      <p data-en="Transfer directly to our registered bank account. Please email us after your transfer with a screenshot." data-hi="हमारे पंजीकृत बैंक खाते में सीधे ट्रांसफर करें। ट्रांसफर के बाद स्क्रीनशॉट के साथ हमें ईमेल करें।">Transfer directly to our registered bank account. Please email us after your transfer with a screenshot.</p>
+    </div>
+    <div class="bank-card reveal">
+      <div class="bank-row"><div class="bank-label" data-en="Account Name" data-hi="खाता नाम">Account Name</div><div class="bank-value">JEEVAN SHIKSHA</div></div>
+      <div class="bank-row"><div class="bank-label" data-en="Bank" data-hi="बैंक">Bank</div><div class="bank-value">Punjab National Bank</div></div>
+      <div class="bank-row"><div class="bank-label" data-en="Branch" data-hi="शाखा">Branch</div><div class="bank-value">Chabua, Assam</div></div>
+      <div class="bank-row"><div class="bank-label" data-en="Account No." data-hi="खाता नं.">Account No.</div><div class="bank-value">001404010835491</div></div>
+      <div class="bank-row"><div class="bank-label">IFSC Code</div><div class="bank-value">PUNB0001400</div></div>
+      <div class="bank-row"><div class="bank-label">PAN</div><div class="bank-value">AACTJ7149P</div></div>
+      <div class="bank-row"><div class="bank-label" data-en="Registration No." data-hi="पंजीकरण संख्या">Registration No.</div><div class="bank-value">REGO. NO. 1963/2017</div></div>
+    </div>
+    <div style="background:var(--teal-light);border-radius:var(--radius);padding:18px 22px;margin-top:20px;display:flex;align-items:center;gap:12px;" class="reveal">
+      <span style="font-size:1.4rem;">ℹ️</span>
+      <p style="font-size:0.88rem;color:var(--teal);font-weight:600;" data-en="After making a donation, please email us at jeevanshiksha.india@gmail.com with transaction details so we can acknowledge your contribution." data-hi="दान करने के बाद, कृपया लेनदेन विवरण के साथ jeevanshiksha.india@gmail.com पर हमें ईमेल करें।">After making a donation, please email us at jeevanshiksha.india@gmail.com with transaction details so we can acknowledge your contribution.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+
+      <!-- Brand -->
+      <div class="footer-brand">
+        <div class="logo-wrap">
+            <div class="logo-icon-sm"><i class="fas fa-feather-alt"></i></div>
+            <div>
+              <div class="brand-name">Jeevan Shiksha</div>
+              <div class="brand-tag" data-en="Education from Life" data-hi="जीवन से शिक्षा">Education from Life</div>
+            </div>
+          </div>
+        <p data-en="Working with marginalised communities in Assam and Uttarakhand since 2017 to improve health, education, and community wellbeing." data-hi="2017 से असम और उत्तराखंड में वंचित समुदायों के साथ स्वास्थ्य, शिक्षा और सामुदायिक कल्याण में काम कर रहे हैं।">Working with marginalised communities in Assam and Uttarakhand since 2017 to improve health, education, and community wellbeing.</p>
+        <div class="social-links">
+          <a href="https://instagram.com/jeevanshiksha" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="mailto:jeevanshiksha.india@gmail.com" class="social-link" aria-label="Email"><i class="fas fa-envelope"></i></a>
+          <a href="https://wa.me/919678494812" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="footer-col">
+        <h5 data-en="Quick Links" data-hi="त्वरित लिंक">Quick Links</h5>
+        <ul>
+          <li><a href="index.html" data-en="Home" data-hi="होम">Home</a></li>
+          <li><a href="about.html" data-en="About Us" data-hi="हमारे बारे में">About Us</a></li>
+          <li><a href="projects.html" data-en="Projects" data-hi="परियोजनाएं">Projects</a></li>
+          <li><a href="gallery.html" data-en="Gallery" data-hi="गैलरी">Gallery</a></li>
+          <li><a href="future-plans.html" data-en="Future Plans" data-hi="भविष्य की योजनाएं">Future Plans</a></li>
+          <li><a href="reports.html" data-en="Annual Reports" data-hi="वार्षिक रिपोर्ट">Annual Reports</a></li>
+          <li><a href="contact.html" data-en="Contact Us" data-hi="संपर्क करें">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <!-- Our Programs -->
+      <div class="footer-col">
+        <h5 data-en="Our Programs" data-hi="हमारे कार्यक्रम">Our Programs</h5>
+        <ul>
+          <li><a href="projects.html#health" data-en="Mental Health (MITA)" data-hi="मानसिक स्वास्थ्य">Mental Health (MITA)</a></li>
+          <li><a href="projects.html#health" data-en="Eye &amp; Reproductive Health" data-hi="नेत्र और प्रजनन स्वास्थ्य">Eye &amp; Reproductive Health</a></li>
+          <li><a href="projects.html#education" data-en="Community Library" data-hi="सामुदायिक पुस्तकालय">Community Library</a></li>
+          <li><a href="projects.html#sports" data-en="Frisbee Program" data-hi="फ्रिसबी कार्यक्रम">Frisbee Program</a></li>
+          <li><a href="projects.html#environment" data-en="Nature Education" data-hi="प्रकृति शिक्षा">Nature Education</a></li>
+          <li><a href="projects.html#culture" data-en="Creativity Adda" data-hi="क्रिएटिविटी अड्डा">Creativity Adda</a></li>
+        </ul>
+      </div>
+
+      <!-- Get Involved -->
+      <div class="footer-col">
+        <h5 data-en="Get Involved" data-hi="जुड़ें">Get Involved</h5>
+        <ul>
+          <li><a href="contact.html#donate" data-en="Donate" data-hi="दान करें">Donate</a></li>
+          <li><a href="contact.html#volunteer" data-en="Volunteer" data-hi="स्वयंसेवा">Volunteer</a></li>
+          <li><a href="contact.html#partner" data-en="Partner With Us" data-hi="हमारे साथ साझेदारी">Partner With Us</a></li>
+          <li><a href="about.html#collaborations" data-en="Collaborations" data-hi="सहयोग">Collaborations</a></li>
+        </ul>
+        <div style="margin-top:20px;">
+          <p style="font-size:0.78rem;color:rgba(255,255,255,0.45);margin-bottom:6px;" data-en="Registration No." data-hi="पंजीकरण संख्या">Registration No.</p>
+          <p style="font-size:0.82rem;color:rgba(255,255,255,0.65);">REGO. NO. 1963/2017</p>
+          <p style="font-size:0.82rem;color:rgba(255,255,255,0.65);">PAN: AACTJ7149P</p>
+        </div>
+      </div>
+
+    </div>
+    <div class="footer-bottom">
+      <span data-en="&copy; 2025 Jeevan Shiksha. All rights reserved." data-hi="&copy; 2025 जीवन शिक्षा। सर्वाधिकार सुरक्षित।">&copy; 2025 Jeevan Shiksha. All rights reserved.</span>
+      <span data-en="Designed for community impact" data-hi="समुदाय प्रभाव के लिए डिज़ाइन किया गया">Designed for community impact</span>
+    </div>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/919678494812" target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+
+<script src="js/main.js"></script>
+<script src="js/additions.js"></script>
+
+</body>
+</html>
