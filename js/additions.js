@@ -244,20 +244,29 @@ function showToast(msg, type = 'success', duration = 4000) {
   const filterBtns = document.querySelectorAll('.filter-btn');
   if (!filterBtns.length) return;
 
+  const resolveCategory = (item) => {
+    if (item.dataset.category) return item.dataset.category;
+    const imgSrc = item.querySelector('img')?.getAttribute('src') || '';
+    if (imgSrc.includes('/mita/') || imgSrc.includes('/physical-health/')) return 'health';
+    if (imgSrc.includes('/learning-centres/') || imgSrc.includes('/library/')) return 'education';
+    if (imgSrc.includes('/environment/')) return 'environment';
+    if (imgSrc.includes('/frisbee/')) return 'sports';
+    if (imgSrc.includes('/creativity-adda/') || imgSrc.includes('/book-launch/')) return 'culture';
+    return 'all';
+  };
+
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      // In a real implementation you'd use data-category attributes
-      // For now, clicking any filter just highlights the button
-      const cat = btn.textContent.trim().toLowerCase();
+      const cat = (btn.dataset.filter || 'all').toLowerCase();
       document.querySelectorAll('.gallery-full-item').forEach(item => {
-        const itemCat = item.dataset.category || 'all';
+        const itemCat = resolveCategory(item).toLowerCase();
         if (cat === 'all' || itemCat === cat) {
           item.style.display = '';
           item.style.opacity = '1';
         } else {
-          item.style.opacity = '0.25';
+          item.style.display = 'none';
         }
       });
     });

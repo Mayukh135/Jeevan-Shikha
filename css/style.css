@@ -331,10 +331,16 @@ p  { font-size: 1rem; color: var(--text-mid); }
 }
 .slide.active { opacity: 1; }
 
-/* Placeholder colours — replace with background-image: url(...) once photos are ready */
+/* Mobile fallback colours; desktop hero uses real banner images */
 .slide-1 { background-color: #c64b35; }
 .slide-2 { background-color: #768a6b; }
 .slide-3 { background-color: #dda121; }
+
+@media (min-width: 769px) {
+  .slide-1 { background-image: url("../public/images/learning-centres/learning-centres-01.jpg"); }
+  .slide-2 { background-image: url("../public/images/library/library-01.jpg"); }
+  .slide-3 { background-image: url("../public/images/environment/environment-01.jpg"); }
+}
 
 /* Prev / Next arrows */
 .slider-arrow {

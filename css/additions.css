@@ -129,7 +129,7 @@
 
 /* === FUTURE PLANS PAGE === */
 .future-plans-hero {
-  background: linear-gradient(135deg, var(--blue) 0%, #768a6b 100%);
+  background: linear-gradient(135deg, var(--blue) 0%, #2A0C09 100%);
 }
 .plans-grid {
   display: grid;
@@ -300,6 +300,7 @@
   .plans-grid      { grid-template-columns: 1fr; }
   .challenges-grid { grid-template-columns: 1fr; }
   .sitemap-grid    { grid-template-columns: 1fr 1fr; }
+  .articles-grid    { grid-template-columns: 1fr; }
   .lightbox-nav.prev { left: 8px; }
   .lightbox-nav.next { right: 8px; }
 }
@@ -325,6 +326,9 @@
   box-shadow: 0 2px 16px rgba(0,0,0,0.07);
   transition: box-shadow 0.3s, transform 0.3s;
   cursor: default;
+  display: block;
+  text-decoration: none;
+  color: inherit;
 }
 .ev-card:hover {
   box-shadow: 0 8px 36px rgba(0,0,0,0.13);
@@ -411,9 +415,15 @@
 
 
 /* ============================================
-   PROGRAMS HOVER OVERLAY  (same mechanism)
-   ============================================ */
-.prog-item { position: relative; overflow: hidden; }
+  PROGRAMS HOVER OVERLAY  (same mechanism)
+  ============================================ */
+.prog-item {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
 
 .prog-overlay {
   position: absolute; inset: 0;
@@ -444,6 +454,88 @@
   transition: gap 0.2s;
 }
 .prog-overlay-link:hover { gap: 12px; }
+
+/* === LATEST ARTICLES === */
+.articles-section {
+  background: var(--cream);
+}
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+.article-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid #edf1f7;
+  transition: var(--transition);
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.article-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+.article-image {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+.article-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.article-card:hover .article-image img {
+  transform: scale(1.05);
+}
+.article-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: white;
+  background: rgba(42,12,9,0.72);
+  backdrop-filter: blur(4px);
+  padding: 4px 10px;
+  border-radius: 99px;
+}
+.article-body {
+  padding: 22px 24px 24px;
+}
+.article-body h3 {
+  font-family: 'Lora', serif;
+  font-size: 1.05rem;
+  color: var(--blue);
+  margin-bottom: 10px;
+}
+.article-body p {
+  font-size: 0.88rem;
+  color: var(--text-light);
+  line-height: 1.7;
+  margin: 0 0 16px;
+}
+.article-link {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--blue);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  transition: gap 0.2s;
+}
+.article-card:hover .article-link {
+  gap: 11px;
+}
 
 
 /* ============================================
@@ -559,7 +651,10 @@
   background: #ededed;
   padding: 88px 0 96px;
 }
-.vmv-header { margin-bottom: 50px; }
+.vmv-header {
+  margin-bottom: 50px;
+  text-align: center;
+}
 .vmv-header h2 {
   color: #43464d;
   font-size: clamp(2rem, 4vw, 3rem);
@@ -654,6 +749,8 @@
   text-transform: uppercase;
   letter-spacing: 0.015em;
   line-height: 1;
+  text-align: center;
+  width: 100%;
 }
 .vmv-blob-card:nth-child(1) .vmv-label { color: #df2f4d; }
 .vmv-blob-card:nth-child(2) .vmv-label { color: #0f9de0; }
@@ -671,29 +768,6 @@
   margin: 0;
   max-width: 100%;
   text-align: left;
-}
-
-/* Values grid */
-.vmv-values-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 5px;
-  width: 100%;
-  margin-top: 2px;
-}
-.vmv-value-item {
-  display: block;
-  font-size: 0.92rem;
-  line-height: 1.35;
-  color: #474a50;
-  background: transparent;
-  border: 0;
-  border-radius: 0;
-  padding: 0;
-  text-align: left;
-}
-.vmv-value-item i {
-  display: none;
 }
 
 /* Navigation */
@@ -731,6 +805,9 @@
   .vmv-blob-inner > p,
   .vmv-value-item {
     font-size: 0.88rem;
+  }
+  .articles-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -922,7 +999,6 @@
 .proj-photo-placeholder-lg p { font-size: 0.85rem; margin: 0; }
 
 /* Photo grid */
-.proj-gallery-section { }
 .proj-photo-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
