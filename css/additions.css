@@ -389,7 +389,7 @@
 /* ---- Hover overlay (slides up from bottom) ---- */
 .ev-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(160deg, rgba(198,75,53,0.97) 0%, rgba(42,12,9,0.95) 100%);
+  background: var(--gradient-overlay);
   display: flex; flex-direction: column; justify-content: flex-end;
   padding: 28px 24px;
   transform: translateY(100%);
@@ -431,7 +431,7 @@
 
 .prog-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(160deg, rgba(198,75,53,0.97) 0%, rgba(42,12,9,0.95) 100%);
+  background: var(--gradient-overlay);
   display: flex; flex-direction: column; justify-content: center;
   padding: 36px 32px;
   transform: translateY(100%);
@@ -553,6 +553,20 @@
   gap: 11px;
 }
 
+/* === UTILITY CLASSES FOR INLINE STYLES === */
+.section-label-muted {
+  color: rgba(255, 255, 255, 0.6);
+}
+.link-inherit {
+  color: inherit;
+}
+.contact-title {
+  color: white;
+  margin-bottom: 24px;
+}
+.form-group-spacing {
+  margin-bottom: 16px;
+}
 
 /* ============================================
    REPORTS TABLE
