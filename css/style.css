@@ -336,11 +336,11 @@ p  { font-size: 1rem; color: var(--text-mid); }
 .slide-2 { background-color: #768a6b; }
 .slide-3 { background-color: #dda121; }
 
-@media (min-width: 769px) {
-  .slide-1 { background-image: url("../public/images/learning-centres/learning-centres-01.jpg"); }
-  .slide-2 { background-image: url("../public/images/library/library-01.jpg"); }
-  .slide-3 { background-image: url("../public/images/environment/environment-01.jpg"); }
-}
+/* Banner images: apply to all viewports so mobile devices also show the photos.
+   Keep the solid background colour above as a lightweight fallback. */
+.slide-1 { background-image: url("../public/images/learning-centres/learning-centres-01.jpg"); }
+.slide-2 { background-image: url("../public/images/library/library-01.jpg"); }
+.slide-3 { background-image: url("../public/images/environment/environment-01.jpg"); }
 
 /* Prev / Next arrows */
 .slider-arrow {
