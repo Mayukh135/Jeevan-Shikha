@@ -395,6 +395,7 @@
   transform: translateY(100%);
   transition: transform 0.38s cubic-bezier(0.4,0,0.2,1);
   border-radius: var(--radius-lg);
+  z-index: 10;
 }
 .ev-card:hover .ev-overlay { transform: translateY(0); }
 
@@ -436,6 +437,7 @@
   transform: translateY(100%);
   transition: transform 0.38s cubic-bezier(0.4,0,0.2,1);
   border-radius: var(--radius-lg);
+  z-index: 10;
 }
 .prog-item:hover .prog-overlay { transform: translateY(0); }
 
